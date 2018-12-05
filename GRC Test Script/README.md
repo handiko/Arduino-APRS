@@ -11,6 +11,13 @@ For GNU Radio 3.8
 * gr-ax25 https://github.com/dl1ksv/gr-ax25
 * gr-display https://github.com/dl1ksv/gr-display
 
-For GNU Radio 3.7, you could check my archive
-* gr-ax25 
+For GNU Radio 3.7, you could check my archive https://github.com/handiko/gr-oot-archive
+* gr-ax25 https://github.com/handiko/gr-oot-archive/tree/master/gr-ax25
+* gr-display https://github.com/handiko/gr-oot-archive/tree/master/gr-display
+
+Or, you could just revert to the dl1ksv's earlier version (mine was from May 2018).
+
+## Status
+Beta version. Tested on GNU Radio 3.7.10
+(Nov 2018)
 ...
