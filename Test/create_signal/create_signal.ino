@@ -14,14 +14,25 @@ const unsigned char ctrl_field=0x03;
 const unsigned char pid=0xf0;
 const unsigned char info_status='>';
 
+const char lipsum[]=
+{
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+};
+
 // WAVE TIMING CONSTANTS
 const unsigned int wd_1200us = (1000000/1200);
 const unsigned int wd_2400us = (1000000/2400);
 const float wd_adj=1.009;
 
+// GLOBAL VARIABLES
+char nada=_1200;
+
 // FUNCTION DECLARATIONS
 void gen_pulse(unsigned int time_const, char pin_out);
 void gen_tone(char note);
+void ubah_nada(void);
+void kirim_karakter_lipsum(unsigned char input);
+void kirim_lipsum(void);
 
 // FUNCTIONS
 void gen_pulse(unsigned int time_const, char pin_out)
@@ -45,6 +56,36 @@ void gen_tone(char note)
   }
 }
 
+void ubah_nada(void)
+{
+  nada = ~nada;
+  gen_tone(nada);
+}
+
+void kirim_karakter_lipsum(unsigned char input)
+{
+  char in_bit;
+  for(int i=0;i<8;i++)
+  {
+    in_bit = (input>>i) & 0x01;
+
+    if(!in_bit)
+    {
+      ubah_nada();
+    }
+    else
+    {
+      gen_tone(nada);
+    }
+  }
+}
+
+void kirim_lipsum(void)
+{
+  for(int i=0;i<sizeof(lipsum);i++)
+    kirim_karakter_lipsum(lipsum[i]);
+}
+
 // MAIN
 void setup() {
   // put your setup code here, to run once:
@@ -53,6 +94,5 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  gen_tone(_1200);
-  gen_tone(_2400);
+  kirim_lipsum();
 }
