@@ -18,11 +18,9 @@ const float wd_adj=1.009;
 
 void gen_pulse(unsigned int time_const, char pin_out)
 {
-  //digitalWrite(LED_BUILTIN, HIGH);
   digitalWrite(pin_out, HIGH);
   for(int i=0;i<10;i++)
     delayMicroseconds(0.5*wd_adj*time_const/10);
-  //digitalWrite(LED_BUILTIN, LOW);
   digitalWrite(pin_out, LOW);
   for(int i=0;i<10;i++)
     delayMicroseconds(0.5*wd_adj*time_const/10);
@@ -30,7 +28,6 @@ void gen_pulse(unsigned int time_const, char pin_out)
 
 void setup() {
   // put your setup code here, to run once:
-  //pinMode(LED_BUILTIN, OUTPUT);
   pinMode(7, OUTPUT);
 }
 
