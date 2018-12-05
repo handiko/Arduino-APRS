@@ -11,22 +11,32 @@ const unsigned char ctrl_field=0x03;
 const unsigned char pid=0xf0;
 const unsigned char info_status='>';
 
-// WAVE DURATION CONSTANTS
-const unsigned int wd_1200=(unsigned int)1/1200;
-const unsigned int wd_2400=(unsigned int)1/2400;
-const float wd_adj=1.0;
+// WAVE TIMING CONSTANTS
+const unsigned int wd_1200us = (1000000/1200);
+const unsigned int wd_2400us = (1000000/2400);
+const float wd_adj=1.009;
 
-void gen_1200(int duration_us)
+void gen_pulse(unsigned int time_const, char pin_out)
 {
-  
+  //digitalWrite(LED_BUILTIN, HIGH);
+  digitalWrite(pin_out, HIGH);
+  for(int i=0;i<10;i++)
+    delayMicroseconds(0.5*wd_adj*time_const/10);
+  //digitalWrite(LED_BUILTIN, LOW);
+  digitalWrite(pin_out, LOW);
+  for(int i=0;i<10;i++)
+    delayMicroseconds(0.5*wd_adj*time_const/10);
 }
 
 void setup() {
   // put your setup code here, to run once:
-
+  //pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(7, OUTPUT);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  gen_pulse(wd_1200us,7);
+  gen_pulse(wd_2400us,7);
+  gen_pulse(wd_2400us,7);
 }
