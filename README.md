@@ -11,8 +11,9 @@ Single tone 2400 Hz generation
 Two tones generation
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Test/Two_Tones_FSK_Test.png)
 
+
 **Generated AFSK Signal while sending Lorem Ipsums**
-![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Test/Two_Tones_FSK_Test.png)
+![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Test/Lorem_Ipsum_AFSK.png)
 
 You can **download** and listen to the generated FSK signal while it was sending Lorem Ipsums, **here:**
 https://github.com/handiko/Arduino-APRS/blob/master/GRC%20Test%20Script/aprs_test.wav
