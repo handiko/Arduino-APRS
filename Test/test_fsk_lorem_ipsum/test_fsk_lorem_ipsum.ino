@@ -26,6 +26,7 @@ const float wd_adj=1.009;
 
 // GLOBAL VARIABLES
 char nada=_1200;
+int baudrate=1200;
 
 // FUNCTION DECLARATIONS
 void gen_pulse(unsigned int time_const, char pin_out);
@@ -47,12 +48,18 @@ void gen_pulse(unsigned int time_const, char pin_out)
 
 void gen_tone(char note)
 {
+  if(baudrate>1200)
+    baudrate=1200;
+    
   if(note==_1200)
-    gen_pulse(wd_1200us,WAV_PIN);
+  {
+    for(int i=0;i<(1200/baudrate);i++)
+      gen_pulse(wd_1200us,WAV_PIN);
+  }
   else
   {
-    gen_pulse(wd_2400us,WAV_PIN);
-    gen_pulse(wd_2400us,WAV_PIN);
+    for(int i=0;i<(2*1200/baudrate);i++)
+      gen_pulse(wd_2400us,WAV_PIN);
   }
 }
 
@@ -86,7 +93,7 @@ void kirim_lipsum(void)
     kirim_karakter_lipsum(flag);
   for(int i=0;i<sizeof(lipsum);i++)
     kirim_karakter_lipsum(lipsum[i]);
-  for(int i=0;i<25;i++)
+  for(int i=0;i<10;i++)
     kirim_karakter_lipsum(flag);
 }
 
@@ -104,5 +111,5 @@ void loop() {
   delay(1000);
   kirim_lipsum();
   digitalWrite(LED_BUILTIN, LOW);
-  delay(3000);
+  delay(5000);
 }
