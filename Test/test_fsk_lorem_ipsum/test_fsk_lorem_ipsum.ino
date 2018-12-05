@@ -94,10 +94,15 @@ void kirim_lipsum(void)
 void setup() {
   // put your setup code here, to run once:
   pinMode(WAV_PIN, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
+  delay(1000);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  kirim_lipsum();
+  digitalWrite(LED_BUILTIN, HIGH);
   delay(1000);
+  kirim_lipsum();
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(3000);
 }

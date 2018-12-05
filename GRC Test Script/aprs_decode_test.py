@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Aprs Decode Test
-# Generated: Wed Dec  5 11:27:47 2018
+# Generated: Wed Dec  5 12:15:09 2018
 ##################################################
 
 if __name__ == '__main__':
@@ -18,6 +18,7 @@ if __name__ == '__main__':
 
 from PyQt4 import Qt
 from gnuradio import audio
+from gnuradio import blocks
 from gnuradio import eng_notation
 from gnuradio import filter
 from gnuradio import gr
@@ -118,6 +119,7 @@ class aprs_decode_test(gr.top_block, Qt.QWidget):
         self.top_layout.addWidget(self._qtgui_freq_sink_x_0_win)
         self.fft_filter_xxx_0 = filter.fft_filter_fff(1, (firdes.band_pass(1,samp_rate,1e3,2.5e3,250,firdes.WIN_BLACKMAN)), 1)
         self.fft_filter_xxx_0.declare_sample_delay(0)
+        self.blocks_wavfile_sink_0 = blocks.wavfile_sink('/tmp/aprs_test.wav', 2, samp_rate, 16)
         self.audio_source_0 = audio.source(samp_rate, '', True)
         self.afsk_afsk1200_0 = afsk.afsk1200(samp_rate,4)
 
@@ -128,6 +130,8 @@ class aprs_decode_test(gr.top_block, Qt.QWidget):
         self.connect((self.audio_source_0, 0), (self.fft_filter_xxx_0, 0))    
         self.connect((self.audio_source_0, 0), (self.rational_resampler_xxx_0, 0))    
         self.connect((self.fft_filter_xxx_0, 0), (self.afsk_afsk1200_0, 0))    
+        self.connect((self.fft_filter_xxx_0, 0), (self.blocks_wavfile_sink_0, 0))    
+        self.connect((self.fft_filter_xxx_0, 0), (self.blocks_wavfile_sink_0, 1))    
         self.connect((self.rational_resampler_xxx_0, 0), (self.qtgui_freq_sink_x_0, 0))    
 
     def closeEvent(self, event):
