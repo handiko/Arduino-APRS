@@ -1,5 +1,8 @@
 #include <math.h>
 
+#define WAV_PIN 7
+#define _1200 1
+#define _2400 0
 
 // APRS DATA FIELD CONSTANTS
 const unsigned char flag=0x7e;
@@ -16,6 +19,11 @@ const unsigned int wd_1200us = (1000000/1200);
 const unsigned int wd_2400us = (1000000/2400);
 const float wd_adj=1.009;
 
+// FUNCTION DECLARATIONS
+void gen_pulse(unsigned int time_const, char pin_out);
+void gen_tone(char note);
+
+// FUNCTIONS
 void gen_pulse(unsigned int time_const, char pin_out)
 {
   digitalWrite(pin_out, HIGH);
@@ -26,14 +34,25 @@ void gen_pulse(unsigned int time_const, char pin_out)
     delayMicroseconds(0.5*wd_adj*time_const/10);
 }
 
+void gen_tone(char note)
+{
+  if(note==_1200)
+    gen_pulse(wd_1200us,WAV_PIN);
+  else
+  {
+    gen_pulse(wd_2400us,WAV_PIN);
+    gen_pulse(wd_2400us,WAV_PIN);
+  }
+}
+
+// MAIN
 void setup() {
   // put your setup code here, to run once:
-  pinMode(7, OUTPUT);
+  pinMode(WAV_PIN, OUTPUT);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  gen_pulse(wd_1200us,7);
-  gen_pulse(wd_2400us,7);
-  gen_pulse(wd_2400us,7);
+  gen_tone(_1200);
+  gen_tone(_2400);
 }
