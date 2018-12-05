@@ -1,7 +1,7 @@
 # Arduino-APRS
-Create simple APRS Tracker using Arduino UNO platform
+Create simple APRS Tracker using Arduino UNO & DUE platform
 
-## Initial Test Results
+## Initial Test Results (Arduino UNO)
 Single tone 1200 Hz generation
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Test/Single_Tone_1200Hz.png)
 
