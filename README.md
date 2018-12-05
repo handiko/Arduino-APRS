@@ -11,7 +11,10 @@ Single tone 2400 Hz generation
 Two tones generation
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Test/Two_Tones_FSK_Test.png)
 
-You can download and listen to the generated FSK signal while it was sending Lorem Ipsums, here:
+**Generated AFSK Signal while sending Lorem Ipsums**
+![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Test/Two_Tones_FSK_Test.png)
+
+You can **download** and listen to the generated FSK signal while it was sending Lorem Ipsums, **here:**
 https://github.com/handiko/Arduino-APRS/blob/master/GRC%20Test%20Script/aprs_test.wav
 
 # About the GRC Test Script
@@ -23,17 +26,17 @@ GNU Radio OOT
 * gr-ax25
 * gr-display
 
-For GNU Radio 3.8 
+**For GNU Radio 3.8**
 * gr-ax25 https://github.com/dl1ksv/gr-ax25
 * gr-display https://github.com/dl1ksv/gr-display
 
-For GNU Radio 3.7, you could check my archive https://github.com/handiko/gr-oot-archive
+**For GNU Radio 3.7**, you could check my archive https://github.com/handiko/gr-oot-archive
 * gr-ax25 https://github.com/handiko/gr-oot-archive/tree/master/gr-ax25
 * gr-display https://github.com/handiko/gr-oot-archive/tree/master/gr-display
 
 Or, you could just revert to the dl1ksv's earlier version (mine was from May 2018).
 
 ## Status
-Beta version. Tested on GNU Radio 3.7.10
+Beta version. Tested on **GNU Radio 3.7.10**
 (Nov 2018)
 ...
