@@ -10,6 +10,10 @@ unsigned char SendData[27] =
   0xF0, 0x54, 0x65, 0x73, 0x74
 };
 
+void hitung_crc(char in_crc);
+void send_character(unsigned char in_char);
+void kirim_crc(void);
+
 void hitung_crc(char in_crc)
 {
   static unsigned short xor_in;
@@ -29,6 +33,19 @@ void send_character(unsigned char in_char)
   }
 }
 
+void kirim_crc(void)
+{
+  static unsigned char crc_lo;
+  static unsigned char crc_hi;
+
+  crc_lo = crc ^ 0xFF;
+  crc_hi = (crc >> 8) ^ 0xFF;
+  send_character(crc_lo);
+  Serial.print(" ");
+  send_character(crc_hi);
+  Serial.println(" ");
+}
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -37,8 +54,13 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  crc=0xffff;
   for(char i=0;i<sizeof(SendData);i++)
+  {
     send_character(SendData[i]);
-  Serial.println(" ");
-  delay(10000);
+    Serial.print(" ");
+  }
+  Serial.print(" CRC: ");
+  kirim_crc();
+  delay(60000);
 }
