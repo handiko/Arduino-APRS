@@ -29,6 +29,7 @@ const float wd_adj=1.009;
 char nada=_1200;
 int baudrate=1200;
 char bit_stuff=0;
+unsigned short crc;
 
 // FUNCTION DECLARATIONS
 void gen_pulse(unsigned int time_const, char pin_out);
@@ -36,6 +37,7 @@ void gen_tone(char note);
 void ubah_nada(void);
 void kirim_karakter(unsigned char input);
 void kirim_aprs_sentence(void);
+void hitung_crc(char in);
 
 // FUNCTIONS
 void gen_pulse(unsigned int time_const, char pin_out)
@@ -71,12 +73,23 @@ void ubah_nada(void)
   gen_tone(nada);
 }
 
+void hitung_crc(char in)
+{
+  static unsigned short xor_in;
+  xor_in = crc ^ in;
+  crc >>= 1;
+  if(xor_in & 0x01) crc ^= 0x8408;
+}
+
 void kirim_karakter(unsigned char input)
 {
   char in_bit;
   for(int i=0;i<8;i++)
   {
     in_bit = (input>>i) & 0x01;
+
+    if(input!=0x7e)
+      hitung_crc(in_bit);
 
     if(!in_bit)
     {
@@ -106,11 +119,11 @@ void kirim_karakter(unsigned char input)
 void kirim_aprs_sentence(void)
 {
   // kirim phasing symbols
-  for(int i=0;i<100;i++)
+  for(int i=0;i<120;i++)
     kirim_karakter(0x00);
 
   // krim flag symbols
-  for(int i=0;i<3;i++)
+  for(int i=0;i<10;i++)
     kirim_karakter(flag);
 
   // kirim dest address
