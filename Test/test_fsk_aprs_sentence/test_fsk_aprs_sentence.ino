@@ -9,10 +9,11 @@ const unsigned char flag=0x7e;
 const unsigned char dest_aprs[7]={('A'<<1),('P'<<1),('A'<<1),('R'<<1),('D'<<1),('1'<<1),('0'<<1)};
 const unsigned char dest_beacon[7]={('B'<<1),('E'<<1),('A'<<1),('C'<<1),('O'<<1),('N'<<1),('0'<<1)};
 const unsigned char mycall[7]={('Y'<<1),('D'<<1),('1'<<1),('S'<<1),('D'<<1),('L'<<1),((11+'0')<<1)};
-const unsigned char digi[8]={"WIDE2 2"};
+const unsigned char digi[]={"WIDE2 2"};
 const unsigned char ctrl_field=0x03;
 const unsigned char pid=0xf0;
 const unsigned char info_status='>';
+const unsigned char status_str[]={"Hello World !"};
 
 const char lipsum[]=
 {
@@ -32,8 +33,8 @@ int baudrate=1200;
 void gen_pulse(unsigned int time_const, char pin_out);
 void gen_tone(char note);
 void ubah_nada(void);
-void kirim_karakter_lipsum(unsigned char input);
-void kirim_lipsum(void);
+void kirim_karakter(unsigned char input);
+void kirim_aprs_sentence(void);
 
 // FUNCTIONS
 void gen_pulse(unsigned int time_const, char pin_out)
@@ -92,6 +93,38 @@ void kirim_aprs_sentence(void)
   // kirim phasing symbols
   for(int i=0;i<100;i++)
     kirim_karakter(0x00);
+
+  // krim flag symbols
+  for(int i=0;i<3;i++)
+    kirim_karakter(flag);
+
+  // kirim dest address
+  for(int i=0;i<7;i++)
+    kirim_karakter(dest_aprs[i]);
+    
+  // kirim my callsign
+  for(int i=0;i<7;i++)
+    kirim_karakter(mycall[i]);
+
+  // kirim digi path
+  for(int i=0;i<6;i++)
+    kirim_karakter(digi[i]<<1);
+  kirim_karakter((digi[6]<<1)+1);
+
+  // kirim control field & protocol id
+  kirim_karakter(ctrl_field);
+  kirim_karakter(pid);
+
+  // kirim status info type
+  kirim_karakter(info_status);
+
+  // kirim status string
+  for(int i=0;i<sizeof(status_str);i++)
+    kirim_karakter(status_str[i]);
+
+  // krim flag symbols
+  for(int i=0;i<3;i++)
+    kirim_karakter(flag);
 }
 
 // MAIN
