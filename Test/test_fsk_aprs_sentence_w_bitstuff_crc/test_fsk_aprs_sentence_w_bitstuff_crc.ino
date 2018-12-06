@@ -38,6 +38,7 @@ void ubah_nada(void);
 void kirim_karakter(unsigned char input);
 void kirim_aprs_sentence(void);
 void hitung_crc(char in);
+void kirim_crc(void);
 
 // FUNCTIONS
 void gen_pulse(unsigned int time_const, char pin_out)
@@ -76,9 +77,20 @@ void ubah_nada(void)
 void hitung_crc(char in)
 {
   static unsigned short xor_in;
-  xor_in = crc ^ in;
-  crc >>= 1;
-  if(xor_in & 0x01) crc ^= 0x8408;
+  xor_in=crc^in;
+  crc>>=1;
+  if(xor_in & 0x01) crc^=0x8408;
+}
+
+void kirim_crc(void)
+{
+  static unsigned char crc_lo;
+  static unsigned char crc_hi;
+
+  crc_lo=crc^0xff;
+  crc_hi=(crc>>8)^0xff;
+  kirim_karakter(crc_lo);
+  kirim_karakter(crc_hi);
 }
 
 void kirim_karakter(unsigned char input)
@@ -149,6 +161,9 @@ void kirim_aprs_sentence(void)
   // kirim status string
   for(int i=0;i<sizeof(status_str);i++)
     kirim_karakter(status_str[i]);
+
+  // kirim crc16
+  kirim_crc();
 
   // krim flag symbols
   for(int i=0;i<3;i++)
