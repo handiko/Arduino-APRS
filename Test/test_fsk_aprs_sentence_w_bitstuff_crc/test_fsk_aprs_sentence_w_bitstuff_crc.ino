@@ -131,12 +131,15 @@ void kirim_karakter(unsigned char input)
 void kirim_aprs_sentence(void)
 {
   // kirim phasing symbols
-  for(int i=0;i<120;i++)
+  for(int i=0;i<70;i++)
     kirim_karakter(0x00);
 
   // krim flag symbols
-  for(int i=0;i<10;i++)
+  for(int i=0;i<70;i++)
     kirim_karakter(flag);
+
+  bit_stuff=0;
+  crc=0xffff;
 
   // kirim dest address
   for(int i=0;i<7;i++)

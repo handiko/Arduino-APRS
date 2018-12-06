@@ -309,7 +309,7 @@
     </param>
     <param>
       <key>taps</key>
-      <value>firdes.band_pass(1,samp_rate,1e3,2.5e3,250,firdes.WIN_BLACKMAN)</value>
+      <value>firdes.band_pass(2,samp_rate,1e3,2.5e3,250,firdes.WIN_BLACKMAN)</value>
     </param>
     <param>
       <key>type</key>
