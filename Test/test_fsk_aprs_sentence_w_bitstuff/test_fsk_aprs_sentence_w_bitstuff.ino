@@ -86,6 +86,19 @@ void kirim_karakter(unsigned char input)
     else
     {
       gen_tone(nada);
+      bit_stuff++;
+      if(bit_stuff==5)
+      {
+        if(input==0x7e)
+        {
+          bit_stuff=0;
+        }
+        else
+        {
+          ubah_nada();
+          bit_stuff=0;
+        }
+      }
     }
   }
 }
