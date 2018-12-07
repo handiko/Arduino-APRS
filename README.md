@@ -15,7 +15,7 @@ Two tones generation
 **Generated AFSK Signal while sending Lorem Ipsums**
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Test/Lorem_Ipsum_AFSK.png)
 
-You can **download** and listen to the generated FSK signal while it was sending Lorem Ipsums (it is NOT in the APRS protocol format), **here:**
+You can **download** and listen to the generated FSK signal while it was sending Lorem Ipsums (it is **NOT** in the APRS protocol format), **here:**
 https://github.com/handiko/Arduino-APRS/blob/master/GRC%20Test%20Script/aprs_test.wav
 
 # About the GRC Test Script
