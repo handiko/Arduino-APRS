@@ -1,5 +1,5 @@
 # Arduino-APRS
-Create simple APRS Tracker using Arduino UNO & DUE platform
+Create simple APRS modulator using Arduino UNO & DUE platform
 
 ## Initial Test Results (Arduino UNO)
 Single tone 1200 Hz generation
