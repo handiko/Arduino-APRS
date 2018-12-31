@@ -1,8 +1,4 @@
 /*
- *  Random Two Tones Test - Test code to make your Arduino UNO to outputs
- *  1200 Hz and 2400 Hz square wave signal switching from one into another
- *  randomly
- *  
  *  Copyright (C) 2018 - Handiko Gesang - www.github.com/handiko
  *  
  *  This program is free software: you can redistribute it and/or modify
@@ -19,12 +15,15 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 #include <math.h>
+#include <stdio.h>
 
 // Defines the Square Wave Output Pin
 #define OUT_PIN 2
 
 #define _1200   1
 #define _2400   0
+
+#define _FLAG   0x7e
 
 bool nada = _2400;
 
@@ -57,7 +56,7 @@ bool nada = _2400;
  *     |<--tc2400-->|<--tc2400-->|<--tc2400-->|<--tc2400-->|
  *     
  */
-const float baud_adj = 0.97;
+const float baud_adj = 0.975;
 const float adj_1200 = 1.0 * baud_adj;
 const float adj_2400 = 1.0 * baud_adj;
 unsigned int tc1200 = (unsigned int)(0.5 * adj_1200 * 1000000.0 / 1200.0);
@@ -81,6 +80,12 @@ z2NdgD8TrRGXR4EJ9gSiJTCBiGoSe1uzoeqPNV1pMM7ld7bKbTriOlBNyTCm7lx7cM8J5IsO4ieg\
 CSjG0OzwiQEhed7hvS2b78Qu"
 };
 
+unsigned int tx_delay = 5000;
+unsigned int str_len = 400;
+
+char bit_stuff = 0;
+unsigned short crc=0xffff;
+
 /*
  * 
  */
@@ -88,11 +93,17 @@ void set_nada_1200(void);
 void set_nada_2400(void);
 void set_nada(bool nada);
 
-void send_char_NRZI(unsigned char in_byte);
-void send_string(const char *in_string);
+void calc_crc(bool in_bit);
+void send_crc(void);
+
+void send_char_NRZI(unsigned char in_byte, bool enBitStuff);
+void send_string_len(const char *in_string, int len);
+
+void send_flag(unsigned char flag_len);
 
 void set_io(void);
 void print_code_version(void);
+void print_debug(void);
 
 /*
  * 
@@ -127,6 +138,33 @@ void set_nada(bool nada)
 }
 
 /*
+ * This function will calculate CRC-16 CCITT for the FCS (Frame Check Sequence)
+ * as required for the HDLC frame validity check.
+ * 
+ * Using 0x1021 as polynomial generator. The CRC registers are initialized with
+ * 0xFFFF
+ */
+void calc_crc(bool in_bit)
+{
+  unsigned short xor_in;
+  
+  xor_in = crc ^ in_bit;
+  crc >>= 1;
+
+  if(xor_in & 0x01)
+    crc ^= 0x8408;
+}
+
+void send_crc(void)
+{
+  unsigned char crc_lo = crc ^ 0xff;
+  unsigned char crc_hi = (crc >> 8) ^ 0xff;
+
+  send_char_NRZI(crc_lo, HIGH);
+  send_char_NRZI(crc_hi, HIGH);
+}
+
+/*
  * This function will send one byte input and convert it
  * into AFSK signal one bit at a time LSB first.
  * 
@@ -134,7 +172,7 @@ void set_nada(bool nada)
  * bit 1 : transmitted as no change in tone
  * bit 0 : transmitted as change in tone
  */
-void send_char_NRZI(unsigned char in_byte)
+void send_char_NRZI(unsigned char in_byte, bool enBitStuff)
 {
   bool bits;
   
@@ -142,28 +180,75 @@ void send_char_NRZI(unsigned char in_byte)
   {
     bits = in_byte & 0x01;
 
+    calc_crc(bits);
+
     if(bits)
     {
       set_nada(nada);
+      bit_stuff++;
+
+      if((enBitStuff) && (bit_stuff == 5))
+      {
+        nada ^= 1;
+        set_nada(nada);
+        
+        bit_stuff = 0;
+      }
     }
     else
     {
       nada ^= 1;
       set_nada(nada);
+
+      bit_stuff = 0;
     }
 
     in_byte >>= 1;
   }
 }
 
-void send_string(const char *in_string)
+void send_string_len(const char *in_string, int len)
 {
-  int len = strlen(in_string);
-  
   for(int j=0; j<len; j++)
   {
-    send_char_NRZI(in_string[j]);
+    send_char_NRZI(in_string[j + len], HIGH);
   }
+}
+
+void send_flag(unsigned char flag_len)
+{
+  for(int j=0; j<flag_len; j++)
+    send_char_NRZI(_FLAG, LOW); 
+}
+
+/*
+ * In this preliminary test, a packet is consists of FLAG(s) and PAYLOAD(s).
+ * Standard APRS FLAG is 0x7e character sent over and over again as a packet
+ * delimiter. In this example, 100 flags is used the preamble and 3 flags as
+ * the postamble.
+ */
+void send_packet(void)
+{
+  print_debug();
+
+  digitalWrite(LED_BUILTIN, 1);
+  
+  send_flag(100);
+  crc = 0xffff;
+  send_string_len(strings, str_len);
+  send_crc();
+  send_flag(3);
+
+  digitalWrite(LED_BUILTIN, 0);
+}
+
+/*
+ * Function to randomized the value of a variable with defined low and hi limit value.
+ * Used to create random AFSK pulse length.
+ */
+void randomize(unsigned int &var, unsigned int low, unsigned int high)
+{
+  var = random(low, high);
 }
 
 /*
@@ -184,7 +269,14 @@ void print_code_version(void)
   Serial.print("Uploaded: ");   Serial.println(__DATE__);
   Serial.println(" ");
   
-  Serial.println("Random String AFSK Generator - Started");
+  Serial.println("Random String Pulsed AFSK Generator - Started \n");
+}
+
+void print_debug(void)
+{
+  Serial.println("Sending flag : 100 characters");
+  Serial.print("Sending payload : ");Serial.print(str_len);Serial.println(" characters");
+  Serial.println("Sending flag : 3 characters \n");
 }
 
 /*
@@ -199,5 +291,9 @@ void setup()
 
 void loop()
 {
-  send_string(strings);
+  send_packet();
+  
+  delay(tx_delay);
+  randomize(tx_delay, 10, 5000);
+  randomize(str_len, 10, 420);
 }

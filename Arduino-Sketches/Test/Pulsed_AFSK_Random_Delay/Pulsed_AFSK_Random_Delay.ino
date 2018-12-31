@@ -1,8 +1,4 @@
 /*
- *  Random Two Tones Test - Test code to make your Arduino UNO to outputs
- *  1200 Hz and 2400 Hz square wave signal switching from one into another
- *  randomly
- *  
  *  Copyright (C) 2018 - Handiko Gesang - www.github.com/handiko
  *  
  *  This program is free software: you can redistribute it and/or modify
@@ -57,7 +53,7 @@ bool nada = _2400;
  *     |<--tc2400-->|<--tc2400-->|<--tc2400-->|<--tc2400-->|
  *     
  */
-const float baud_adj = 0.97;
+const float baud_adj = 0.975;
 const float adj_1200 = 1.0 * baud_adj;
 const float adj_2400 = 1.0 * baud_adj;
 unsigned int tc1200 = (unsigned int)(0.5 * adj_1200 * 1000000.0 / 1200.0);
@@ -81,6 +77,9 @@ z2NdgD8TrRGXR4EJ9gSiJTCBiGoSe1uzoeqPNV1pMM7ld7bKbTriOlBNyTCm7lx7cM8J5IsO4ieg\
 CSjG0OzwiQEhed7hvS2b78Qu"
 };
 
+unsigned int tx_delay = 5000;
+unsigned int str_len = 400;
+
 /*
  * 
  */
@@ -89,7 +88,7 @@ void set_nada_2400(void);
 void set_nada(bool nada);
 
 void send_char_NRZI(unsigned char in_byte);
-void send_string(const char *in_string);
+void send_string_len(const char *in_string, int len);
 
 void set_io(void);
 void print_code_version(void);
@@ -156,14 +155,21 @@ void send_char_NRZI(unsigned char in_byte)
   }
 }
 
-void send_string(const char *in_string)
+void send_string_len(const char *in_string, int len)
 {
-  int len = strlen(in_string);
-  
   for(int j=0; j<len; j++)
   {
-    send_char_NRZI(in_string[j]);
+    send_char_NRZI(in_string[j + len]);
   }
+}
+
+/*
+ * Function to randomized the value of a variable with defined low and hi limit value.
+ * Used to create random AFSK pulse length.
+ */
+void randomize(unsigned int &var, unsigned int low, unsigned int high)
+{
+  var = random(low, high);
 }
 
 /*
@@ -184,7 +190,7 @@ void print_code_version(void)
   Serial.print("Uploaded: ");   Serial.println(__DATE__);
   Serial.println(" ");
   
-  Serial.println("Random String AFSK Generator - Started");
+  Serial.println("Random String Pulsed AFSK Generator - Started");
 }
 
 /*
@@ -199,5 +205,8 @@ void setup()
 
 void loop()
 {
-  send_string(strings);
+  send_string_len(strings, str_len);
+  delay(tx_delay);
+  randomize(tx_delay, 10, 5000);
+  randomize(str_len, 10, 420);
 }
