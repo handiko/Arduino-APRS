@@ -38,7 +38,7 @@ Basically, the technique i used to generate AFSK signal is by directly construct
  *     |            |            |            |            |
  * ----              ------------              ------------
  * 
- *     |<--tc1200-->|<--tc1200-->|<--tc1200-->|<--tc1200-->|
+ *     |<--tc2400-->|<--tc2400-->|<--tc2400-->|<--tc2400-->|
  *     
  */
 ```
