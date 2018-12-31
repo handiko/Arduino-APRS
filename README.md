@@ -33,3 +33,11 @@ The required GRC Flowgraph can be obtained here : https://github.com/handiko/gr-
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/two_tone_test_bpf.png)
 
 ...
+
+## Acknnowledgements
+* The APRS Working Group - Tucson Amateur Packet Radio Corp
+* John Hansen, W2FS - State University of New York
+* Bill Newhall, KB2BRD
+* Selo - Fakultas Teknik, Universitas Gadjah Mada
+* Lab. Sensor dan Sistem Telekontrol & Production House - Physics Engineering Dept, Universitas Gadjah Mada
+& PT. Datto Asia Teknologi
