@@ -14,15 +14,19 @@ Examples and Test files are included.
 Here are some preliminary test to show you how to generate APRS (or AFSK in general) signal on Arduino UNO.
 The required GRC Flowgraph can be obtained here : https://github.com/handiko/gr-APRS
 
-* GRC flowgraph: **APRS_time_and_freq_disp.grc**
 * Test circuit (**bring the loudspeaker close to your laptop's microphone**, and then run the GRC flowgraph above):
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/AFSK_Test_Circuit.png)
 
 ### Single Tone (1200 Hz / 2400 Hz) Test
 * Arduino Skecthes : **Arduino-APRS/Arduino-Sketches/Test/Single_Tone_Test_1200_Hz** (and .....2400_Hz of course)
+* GRC flowgraph: **APRS_time_and_freq_disp.grc**
 * Test result (1200 Hz) :
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/single_tone_1200_test.png)
 * Test result (2400 Hz) :
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/single_tone_2400_test.png)
+
+### Random Two Tone Test
+* Arduino Skecthes : **Arduino-APRS/Arduino-Sketches/Test/Random_Two_Tones_Test**
+* GRC flowgraph: **APRS_time_and_freq_disp_BPF.grc**
 
 ...
