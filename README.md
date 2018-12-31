@@ -10,6 +10,39 @@ Examples and Test files are included.
 * **1 mini speaker** (8 Ohms - 32 Ohms and below 0.5 watt works well).
 * **Jumper wires and bread board**
 
+## AFSK Bit Banging
+Basically, the technique i used to generate AFSK signal is by directly construct the signal itself by outputing square wave at the GPIO. Here is the some comment snippet from the code (doesn't directly explain the AFSK signal generation, but i think you'll get the idea):
+```
+/* SQUARE WAVE SIGNAL GENERATION
+ * 
+ * baud_adj lets you to adjust or fine tune overall baud rate
+ * by simultaneously adjust the 1200 Hz and 2400 Hz tone,
+ * so that both tone would scales synchronously.
+ * adj_1200 determined the 1200 hz tone adjustment.
+ * tc1200 is the half of the 1200 Hz signal periods.
+ * 
+ *      -------------------------                           -------
+ *     |                         |                         |
+ *     |                         |                         |
+ *     |                         |                         |
+ * ----                           -------------------------
+ * 
+ *     |<------ tc1200 --------->|<------ tc1200 --------->|
+ *     
+ * adj_2400 determined the 2400 hz tone adjustment.
+ * tc2400 is the half of the 2400 Hz signal periods.
+ * 
+ *      ------------              ------------              -------
+ *     |            |            |            |            |
+ *     |            |            |            |            |            
+ *     |            |            |            |            |
+ * ----              ------------              ------------
+ * 
+ *     |<--tc1200-->|<--tc1200-->|<--tc1200-->|<--tc1200-->|
+ *     
+ */
+```
+ 
 ## Test
 Here are some preliminary test to show you how to generate APRS (or AFSK in general) signal on Arduino UNO.
 The required GRC Flowgraph can be obtained here : https://github.com/handiko/gr-APRS
