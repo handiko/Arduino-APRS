@@ -3,7 +3,7 @@ Create simple 1200baud APRS / AFSK modulator using Arduino UNO.
 Examples and Test files are included.
 
 ## Requirements
-* **Arduino UNO / Compatible Board**. Even works on ESP8266 / ESP12 board by changing the #define OUT_PIN 2 into the desired GPIO.
+* **Arduino UNO / Compatible Board**. Doesn't really matter what board you are using. As long as it has enough GPIO and at least 1 UART to work with. Even works on ESP8266 / ESP12 board by changing the `#define OUT_PIN 2` into the desired GPIO. Personally, I often use GPIO 14 on ESP8266 / ESP12, so I changed it into `#define OUT_PIN 14`.
 * **Arduino IDE**
 * **GNU Radio Companion** (not a mandatory, but recommended for testing purposes). You can also use Audacity instead.
 * **1 Resistor between 270 Ohms - 470 Ohms** (GPIO current limitter).
