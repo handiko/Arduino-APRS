@@ -5,8 +5,8 @@ int dacLookTable[samplePoints];
 const float pi=3.141592;
 const int dacBias=2048;
 const int dacAmpl=4000;
-const float freqAdj=1.2;
-const int freq=1200;
+const float freqAdj=1.1;
+const float freq=2400;
 
 int calcDACLookTable(int point)
 {
@@ -29,9 +29,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   for(int i=0;i<samplePoints;i++)
   {
-    digitalWrite(LED_BUILTIN,HIGH);
     analogWrite(DAC1, dacLookTable[i]);
-    delayMicroseconds(1000000/(freq*freqAdj*samplePoints));
-    digitalWrite(LED_BUILTIN,LOW);
+    delayMicroseconds((unsigned int)(1000000.0/(freq*freqAdj*samplePoints)));
   }
 }
