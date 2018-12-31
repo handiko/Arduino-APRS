@@ -11,8 +11,8 @@ Examples and Test files are included.
 * **Jumper wires and bread board**
 
 ## AFSK Bit Banging
-Basically, the technique i used to generate AFSK signal is by directly construct the signal itself by outputing square wave at the GPIO. Here is the some comment snippet from the code (doesn't directly explain the AFSK signal generation, but i think you'll get the idea):
-```
+Basically, the technique i used to generate AFSK signal is by directly construct the signal itself by outputing square wave at the GPIO. Here is the some code and comment snippet from the sketch (doesn't directly explain the AFSK signal generation, but i think you'll get the idea):
+```c
 /* SQUARE WAVE SIGNAL GENERATION
  * 
  * baud_adj lets you to adjust or fine tune overall baud rate
@@ -41,6 +41,28 @@ Basically, the technique i used to generate AFSK signal is by directly construct
  *     |<--tc2400-->|<--tc2400-->|<--tc2400-->|<--tc2400-->|
  *     
  */
+ 
+ void set_nada_1200(void)
+{
+  digitalWrite(OUT_PIN, HIGH);
+  delayMicroseconds(tc1200);
+  digitalWrite(OUT_PIN, LOW);
+  delayMicroseconds(tc1200);
+}
+
+void set_nada_2400(void)
+{
+  digitalWrite(OUT_PIN, HIGH);
+  delayMicroseconds(tc2400);
+  digitalWrite(OUT_PIN, LOW);
+  delayMicroseconds(tc2400);
+  
+  digitalWrite(OUT_PIN, HIGH);
+  delayMicroseconds(tc2400);
+  digitalWrite(OUT_PIN, LOW);
+  delayMicroseconds(tc2400);
+}
+
 ```
  
 ## Test
