@@ -54,10 +54,10 @@ bool nada = _2400;
  *     |            |            |            |            |
  * ----              ------------              ------------
  * 
- *     |<--tc1200-->|<--tc1200-->|<--tc1200-->|<--tc1200-->|
+ *     |<--tc2400-->|<--tc2400-->|<--tc2400-->|<--tc2400-->|
  *     
  */
-const float baud_adj = 0.86;
+const float baud_adj = 0.97;
 const float adj_1200 = 1.0 * baud_adj;
 const float adj_2400 = 1.0 * baud_adj;
 unsigned int tc1200 = (unsigned int)(0.5 * adj_1200 * 1000000.0 / 1200.0);
@@ -185,7 +185,7 @@ void print_code_version(void)
   Serial.print("Uploaded: ");   Serial.println(__DATE__);
   Serial.println(" ");
   
-  Serial.println("Random Two Tones Test 1200 Hz & 2400 Hz - Started");
+  Serial.println("Random String AFSK Generator - Started");
 }
 
 /*
