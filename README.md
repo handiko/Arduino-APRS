@@ -93,9 +93,26 @@ The required GRC Flowgraph can be obtained here : https://github.com/handiko/gr-
 * Test result. From the plot below, demodulator output and the Clock Synchronizer output shows that the generated AFSK signal has both correct tone and correct baudrate.
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/random_string_demod.png)
 
-...
+## Example
+Here are some examples where the generated APRS/AFSK signal is decoded using GNU Radio and direwolf (https://github.com/wb2osz/direwolf). This example confirms that the generated APRS/AFSK signal indeed correct and decodeable.
 
-## Acknnowledgements
+### Mixed APRS Protocol (Normal or Beacon mode plus Fixed Position or Status Message)
+* Arduino Skecthes : **Arduino-APRS/Arduino-Sketches/Example/APRS_Mixed_Message**
+* GRC Flowgraph : **APRS_SCARD.grc**
+* Transmitter frame (shown in TNC2 format)
+![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/aprs_serial_monitor_debug.png)
+
+* Test Result (Demod output)
+![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/aprs_demod_output.png)
+
+* Test Result (Direwolf decoder output please visit https://github.com/wb2osz/direwolf)
+![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/aprs_direwolf_decode.png)
+
+* Test Result (Decoded APRS Frame using GNU Radio)
+![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/telnet_aprs_decode_output.png)
+
+## Acknowledgements
+* Direwolf - WB2OSZ https://github.com/wb2osz/direwolf
 * The APRS Working Group - Tucson Amateur Packet Radio Corp
 * John Hansen, W2FS - State University of New York
 * Bill Newhall, KB2BRD
