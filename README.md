@@ -42,7 +42,7 @@ Basically, the technique i used to generate AFSK signal is by directly construct
  *     
  */
  
- void set_nada_1200(void)
+void set_nada_1200(void)
 {
   digitalWrite(OUT_PIN, HIGH);
   delayMicroseconds(tc1200);
