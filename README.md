@@ -27,6 +27,9 @@ The required GRC Flowgraph can be obtained here : https://github.com/handiko/gr-
 
 ### Random Two Tone Test
 * Arduino Skecthes : **Arduino-APRS/Arduino-Sketches/Test/Random_Two_Tones_Test**
-* GRC flowgraph: **APRS_time_and_freq_disp_BPF.grc**
+* Test result (using **APRS_time_and_freq_disp.grc**) :
+![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/two_tone_test.png)
+* Test result (using **APRS_time_and_freq_disp_BPF.grc**) :
+![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/two_tone_test_bpf.png)
 
 ...
