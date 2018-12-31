@@ -104,7 +104,7 @@ Here are some examples where the generated APRS/AFSK signal is decoded using GNU
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/aprs_demod_output.png)
 * Test Result (Direwolf decoder output please visit https://github.com/wb2osz/direwolf)
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/aprs_direwolf_decode.png)
-* Test Result (Decoded APRS Frame using GNU Radio)
+* Test Result (Decoded APRS Frame from GNU Radio)
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/telnet_aprs_decode_output.png)
 
 ## Acknowledgements
