@@ -87,6 +87,12 @@ The required GRC Flowgraph can be obtained here : https://github.com/handiko/gr-
 * Test result (using **APRS_time_and_freq_disp_BPF.grc**) :
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/two_tone_test_bpf.png)
 
+### Random String Demodulation Test
+* Arduino Skecthes : **Arduino-APRS/Arduino-Sketches/Test/Pulsed_AFSK_Random_Delay_with_Preamble**
+* GRC Flowgraph : **APRS_AFSK_Demod_Clock_Sync.grc**
+* Test result. From the plot below, demodulator output and the Clock Synchronizer output shows that the generated AFSK signal has both correct tone and correct baudrate.
+![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/random_string_demod.png)
+
 ...
 
 ## Acknnowledgements
