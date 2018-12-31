@@ -17,7 +17,7 @@ The required GRC Flowgraph can be obtained here : https://github.com/handiko/gr-
 ### Single Tone (1200 Hz / 2400 Hz) Test 
 GRC flowgraph: **APRS_time_and_freq_disp.grc**
 
-Test ciruit (**bring the loudspeaker close to your laptop's microphone**, and then run the GRC flowgraph above):
+Test circuit (**bring the loudspeaker close to your laptop's microphone**, and then run the GRC flowgraph above):
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/AFSK_Test_Circuit.png)
 
 Test result (1200 Hz) :
