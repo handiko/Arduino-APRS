@@ -98,7 +98,7 @@ Here are some examples where the generated APRS/AFSK signal is decoded using GNU
 ### Mixed APRS Protocol (Normal or Beacon mode plus Fixed Position or Status Message)
 * Arduino Skecthes : **Arduino-APRS/Arduino-Sketches/Example/APRS_Mixed_Message**
 * GRC Flowgraph : **APRS_SCARD.grc**
-* Transmitted frame (shown in TNC2 format)
+* Transmitted frame (displayed in TNC2 format)
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/aprs_serial_monitor_debug.png)
 * Test Result (Demod output)
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/aprs_demod_output.png)
