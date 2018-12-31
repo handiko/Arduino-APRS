@@ -25,6 +25,36 @@
 #define _2400   0
 
 bool nada = _2400;
+
+/*
+ * SQUARE WAVE SIGNAL GENERATION
+ * 
+ * baud_adj lets you to adjust or fine tune overall baud rate
+ * by simultaneously adjust the 1200 Hz and 2400 Hz tone,
+ * so that both tone would scales synchronously.
+ * adj_1200 determined the 1200 hz tone adjustment.
+ * tc1200 is the half of the 1200 Hz signal periods.
+ * 
+ *      -------------------------                           -------
+ *     |                         |                         |
+ *     |                         |                         |
+ *     |                         |                         |
+ * ----                           -------------------------
+ * 
+ *     |<------ tc1200 --------->|<------ tc1200 --------->|
+ *     
+ * adj_2400 determined the 2400 hz tone adjustment.
+ * tc2400 is the half of the 2400 Hz signal periods.
+ * 
+ *      ------------              ------------              -------
+ *     |            |            |            |            |
+ *     |            |            |            |            |            
+ *     |            |            |            |            |
+ * ----              ------------              ------------
+ * 
+ *     |<--tc1200-->|<--tc1200-->|<--tc1200-->|<--tc1200-->|
+ *     
+ */
 const float baud_adj = 0.97;
 const float adj_1200 = 1.0 * baud_adj;
 const float adj_2400 = 1.0 * baud_adj;

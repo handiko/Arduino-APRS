@@ -19,11 +19,29 @@
  */
 #include <math.h>
 
+// Defines the Square Wave Output Pin
 #define OUT_PIN 2
 
 #define _1200   1
 
 bool nada = _1200;
+
+/*
+ * SQUARE WAVE SIGNAL GENERATION
+ * 
+ * baud_adj lets you to adjust or fine tune overall baud rate.
+ * adj_1200 determined the 1200 hz tone adjustment.
+ * tc1200 is the half of the 1200 Hz signal periods.
+ * 
+ *      ------------------------                          -------
+ *     |                        |                        |
+ *     |                        |                        |
+ *     |                        |                        |
+ * ----                          ------------------------
+ * 
+ *     |<----- tc1200 --------->|<----- tc1200 --------->|
+ *     
+ */
 const float baud_adj = 0.97;
 const float adj_1200 = 1.0 * baud_adj;
 unsigned int tc1200 = (unsigned int)(0.5 * adj_1200 * 1000000.0 / 1200.0);

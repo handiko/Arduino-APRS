@@ -20,12 +20,43 @@
  */
 #include <math.h>
 
+// Defines the Square Wave Output Pin
 #define OUT_PIN 2
 
 #define _1200   1
 #define _2400   0
 
 bool nada = _2400;
+
+/*
+ * SQUARE WAVE SIGNAL GENERATION
+ * 
+ * baud_adj lets you to adjust or fine tune overall baud rate
+ * by simultaneously adjust the 1200 Hz and 2400 Hz tone,
+ * so that both tone would scales synchronously.
+ * adj_1200 determined the 1200 hz tone adjustment.
+ * tc1200 is the half of the 1200 Hz signal periods.
+ * 
+ *      -------------------------                           -------
+ *     |                         |                         |
+ *     |                         |                         |
+ *     |                         |                         |
+ * ----                           -------------------------
+ * 
+ *     |<------ tc1200 --------->|<------ tc1200 --------->|
+ *     
+ * adj_2400 determined the 2400 hz tone adjustment.
+ * tc2400 is the half of the 2400 Hz signal periods.
+ * 
+ *      ------------              ------------              -------
+ *     |            |            |            |            |
+ *     |            |            |            |            |            
+ *     |            |            |            |            |
+ * ----              ------------              ------------
+ * 
+ *     |<--tc1200-->|<--tc1200-->|<--tc1200-->|<--tc1200-->|
+ *     
+ */
 const float baud_adj = 0.86;
 const float adj_1200 = 1.0 * baud_adj;
 const float adj_2400 = 1.0 * baud_adj;
@@ -76,6 +107,16 @@ void set_nada(bool nada)
     set_nada_2400();
 }
 
+/*
+ * Make a random 1200baud AFSK Signal by randomly
+ * alternates between 1200Hz and 2400Hz. Random numbers
+ * between 1 and 50 are generated. Everytime the numbers
+ * are divisible by two, generate 1200Hz tone and 2400hz
+ * tone otherwise. Adjust the generated baudrate by
+ * tuning the baud_adj variable and observe the generated
+ * tone in either GRC or Audacity. Adjust baud_adj until
+ * the frequencies are 1200hz and 2400Hz
+ */
 void switch_random(void)
 {
   char i = random(1, 50);
