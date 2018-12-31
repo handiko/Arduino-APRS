@@ -68,7 +68,6 @@ void set_nada_2400(void)
 ## Test
 Here are some preliminary test to show you how to generate APRS (or AFSK in general) signal on Arduino UNO.
 The required GRC Flowgraph can be obtained here : https://github.com/handiko/gr-APRS
-
 * Test circuit (**bring the loudspeaker close to your laptop's microphone**, and then run the GRC flowgraph above):
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/AFSK_Test_Circuit.png)
 
@@ -101,13 +100,10 @@ Here are some examples where the generated APRS/AFSK signal is decoded using GNU
 * GRC Flowgraph : **APRS_SCARD.grc**
 * Transmitter frame (shown in TNC2 format)
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/aprs_serial_monitor_debug.png)
-
 * Test Result (Demod output)
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/aprs_demod_output.png)
-
 * Test Result (Direwolf decoder output please visit https://github.com/wb2osz/direwolf)
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/aprs_direwolf_decode.png)
-
 * Test Result (Decoded APRS Frame using GNU Radio)
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/telnet_aprs_decode_output.png)
 
