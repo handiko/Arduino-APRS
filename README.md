@@ -109,6 +109,8 @@ Here are some examples where the generated APRS/AFSK signal is decoded using GNU
 
 ## Early Static Test
 Recently i performed a static test to see whether the Arduino-APRS could send the packet via Radio. Sure it could !
+* Ciruits : **Arduino-APRS/Fritzing-Sketch/APRS_GPS.fzz**
+![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/fritzing_APRS_GPS.png)
 * Arduino Sketches : **Arduino-APRS/Arduino-Sketches/Test/APRS_GPS_GPRMC**
 * GPS : **uBlox NEO-6-M with small pacth antenna**
 * I-Gate : **Direwolf** https://github.com/wb2osz/direwolf under linux
