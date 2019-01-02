@@ -427,5 +427,5 @@ void loop()
   
   delay(tx_delay);
   randomize(tx_delay, 10, 5000);
-  randomize(str_len, 10, 420);
+  randomize(str_len, 1, 256);
 }
