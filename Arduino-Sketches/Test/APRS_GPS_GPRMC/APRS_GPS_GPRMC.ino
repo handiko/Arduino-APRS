@@ -86,6 +86,7 @@ const char *dest_beacon = "BEACON";
 const char *digi = "WIDE2";
 char digissid = 1;
 
+const char *comment = "www.github.com/handiko";
 const char *mystatus = "..::| Experimental Arduino-APRS |::..";
 
 char lati[9];
@@ -331,7 +332,7 @@ void send_payload(char type)
     send_string_len(lon, strlen(lon));
     send_char_NRZI(sym_tab, true);
 
-    send_string_len(mystatus, strlen(mystatus));
+    send_string_len(comment, strlen(comment));
   }
   else
   {
@@ -613,7 +614,7 @@ void print_debug(char type)
     Serial.print(lon);
     Serial.print(sym_tab);
 
-    Serial.print(mystatus);
+    Serial.print(comment);
   }
   else
   {
