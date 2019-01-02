@@ -112,7 +112,7 @@ Recently i performed a static test to see whether the Arduino-APRS could send th
 * Arduino Sketches : **Arduino-APRS/Arduino-Sketches/Test/APRS_GPS_GPRMC**
 * GPS : **uBlox NEO-6-M with small pacth antenna**
 * I-Gate : **Direwolf** https://github.com/wb2osz/direwolf under linux
-* See how it reported the GPS position while it still trying to aquire the most accurate position over time.
+* See how it reported the GPS position while it still trying to aquire the most accurate position over time (https://aprs.fi , https://aprs.fi/info/a/YD1SDL-1).
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/static_test_zoom.png)
 * Here was the RF path to the IGate:
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/RF_path.png)
@@ -122,6 +122,7 @@ Recently i performed a static test to see whether the Arduino-APRS could send th
 * The APRS Working Group - Tucson Amateur Packet Radio Corp
 * John Hansen, W2FS - State University of New York
 * Bill Newhall, KB2BRD
+* https://aprs.fi
 * Selo - Fakultas Teknik, Universitas Gadjah Mada
 * Lab. Sensor dan Sistem Telekontrol & Production House - Physics Engineering Dept, Universitas Gadjah Mada
 & PT. Datto Asia Teknologi
