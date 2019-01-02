@@ -77,7 +77,7 @@ unsigned int tc2400 = (unsigned int)(0.5 * adj_2400 * 1000000.0 / 2400.0);
 /*
  * This strings will be used to generate AFSK signals, over and over again.
  */
-const char *mycall = "MYCALL";
+const char *mycall = "YD1SDL";
 char myssid = 1;
 
 const char *dest = "APZ";
@@ -336,7 +336,7 @@ void send_payload(char type)
   }
   else
   {
-    send_char_NRZI(_DT_STATUS, true);
+    //send_char_NRZI(_DT_STATUS, true);
     send_string_len(mystatus, strlen(mystatus));
   }
 }
@@ -618,7 +618,7 @@ void print_debug(char type)
   }
   else
   {
-    Serial.print(_DT_STATUS);
+    //Serial.print(_DT_STATUS);
     Serial.print(mystatus);
   }
   
