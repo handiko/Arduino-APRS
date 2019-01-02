@@ -31,13 +31,11 @@
 #define _DT_STATUS  '>'
 #define _DT_POS     '!'
 
-#define _NORMAL     1
-#define _BEACON     2
-
 #define _GPRMC          1
-#define _FIXPOS         2
-#define _FIXPOS_STATUS  3
-#define _STATUS         4
+#define _BEACON         2
+#define _FIXPOS         3
+#define _FIXPOS_STATUS  4
+#define _STATUS         5
 
 bool nada = _2400;
 
@@ -82,16 +80,17 @@ unsigned int tc2400 = (unsigned int)(0.5 * adj_2400 * 1000000.0 / 2400.0);
 const char *mycall = "MYCALL";
 char myssid = 1;
 
-const char *dest = "APRS";
+const char *dest = "APZ";
 const char *dest_beacon = "BEACON";
 
 const char *digi = "WIDE2";
 char digissid = 1;
 
-const char *mystatus = "Hello World, This is a simple Arduino APRS Transmitter !";
+const char *mystatus = "..::| Experimental Arduino-APRS |::..";
 
-const char *lat = "0610.55S";
-const char *lon = "10649.62E";
+char lati[9];
+char lon[10];
+int coord_valid;
 const char sym_ovl = 'H';
 const char sym_tab = 'a';
 
@@ -118,7 +117,7 @@ void send_string_len(const char *in_string, int len);
 void calc_crc(bool in_bit);
 void send_crc(void);
 
-void send_packet(char packet_type, char dest_type);
+void send_packet(char packet_type);
 void send_flag(unsigned char flag_len);
 void send_header(char msg_type);
 void send_payload(char type);
@@ -128,14 +127,14 @@ char parse_gprmc(void);
 
 void set_io(void);
 void print_code_version(void);
-void print_debug(char type, char dest_type);
+void print_debug(char type);
 
 /*
  * 
  */
 void set_nada_1200(void)
 {
-  digitalWrite(OUT_PIN, HIGH);
+  digitalWrite(OUT_PIN, true);
   delayMicroseconds(tc1200);
   digitalWrite(OUT_PIN, LOW);
   delayMicroseconds(tc1200);
@@ -143,12 +142,12 @@ void set_nada_1200(void)
 
 void set_nada_2400(void)
 {
-  digitalWrite(OUT_PIN, HIGH);
+  digitalWrite(OUT_PIN, true);
   delayMicroseconds(tc2400);
   digitalWrite(OUT_PIN, LOW);
   delayMicroseconds(tc2400);
   
-  digitalWrite(OUT_PIN, HIGH);
+  digitalWrite(OUT_PIN, true);
   delayMicroseconds(tc2400);
   digitalWrite(OUT_PIN, LOW);
   delayMicroseconds(tc2400);
@@ -185,8 +184,8 @@ void send_crc(void)
   unsigned char crc_lo = crc ^ 0xff;
   unsigned char crc_hi = (crc >> 8) ^ 0xff;
 
-  send_char_NRZI(crc_lo, HIGH);
-  send_char_NRZI(crc_hi, HIGH);
+  send_char_NRZI(crc_lo, true);
+  send_char_NRZI(crc_hi, true);
 }
 
 void send_header(char msg_type)
@@ -213,53 +212,53 @@ void send_header(char msg_type)
    */
 
   /********* DEST ***********/
-  if(msg_type == _NORMAL)
-  {
-    temp = strlen(dest);
-    for(int j=0; j<temp; j++)
-      send_char_NRZI(dest[j] << 1, HIGH);
-  }
-  else if(msg_type == _BEACON)
+  if(msg_type == _BEACON)
   {
     temp = strlen(dest_beacon);
     for(int j=0; j<temp; j++)
-      send_char_NRZI(dest_beacon[j] << 1, HIGH);
+      send_char_NRZI(dest_beacon[j] << 1, true);
+  }
+  else
+  {
+    temp = strlen(dest);
+    for(int j=0; j<temp; j++)
+      send_char_NRZI(dest[j] << 1, true);
   }
   if(temp < 6)
   {
     for(int j=0; j<(6 - temp); j++)
-      send_char_NRZI(' ' << 1, HIGH);
+      send_char_NRZI(' ' << 1, true);
   }
-  send_char_NRZI('0' << 1, HIGH);
+  send_char_NRZI('0' << 1, true);
   
 
   
   /********* SOURCE *********/
   temp = strlen(mycall);
   for(int j=0; j<temp; j++)
-    send_char_NRZI(mycall[j] << 1, HIGH);
+    send_char_NRZI(mycall[j] << 1, true);
   if(temp < 6)
   {
     for(int j=0; j<(6 - temp); j++)
-      send_char_NRZI(' ' << 1, HIGH);
+      send_char_NRZI(' ' << 1, true);
   }
-  send_char_NRZI((myssid + '0') << 1, HIGH);
+  send_char_NRZI((myssid + '0') << 1, true);
 
   
   /********* DIGI ***********/
   temp = strlen(digi);
   for(int j=0; j<temp; j++)
-    send_char_NRZI(digi[j] << 1, HIGH);
+    send_char_NRZI(digi[j] << 1, true);
   if(temp < 6)
   {
     for(int j=0; j<(6 - temp); j++)
-      send_char_NRZI(' ' << 1, HIGH);
+      send_char_NRZI(' ' << 1, true);
   }
-  send_char_NRZI(((digissid + '0') << 1) + 1, HIGH);
+  send_char_NRZI(((digissid + '0') << 1) + 1, true);
 
   /***** CTRL FLD & PID *****/
-  send_char_NRZI(_CTRL_ID, HIGH);
-  send_char_NRZI(_PID, HIGH);
+  send_char_NRZI(_CTRL_ID, true);
+  send_char_NRZI(_PID, true);
 }
 
 void send_payload(char type)
@@ -313,26 +312,30 @@ void send_payload(char type)
   }
   else if(type == _FIXPOS)
   {
-    send_char_NRZI(_DT_POS, HIGH);
-    send_string_len(lat, strlen(lat));
-    send_char_NRZI(sym_ovl, HIGH);
+    send_char_NRZI(_DT_POS, true);
+    send_string_len(lati, strlen(lati));
+    send_char_NRZI(sym_ovl, true);
     send_string_len(lon, strlen(lon));
-    send_char_NRZI(sym_tab, HIGH);
+    send_char_NRZI(sym_tab, true);
   }
   else if(type == _STATUS)
   {
-    send_char_NRZI(_DT_STATUS, HIGH);
+    send_char_NRZI(_DT_STATUS, true);
     send_string_len(mystatus, strlen(mystatus));
   }
   else if(type == _FIXPOS_STATUS)
   {
-    send_char_NRZI(_DT_POS, HIGH);
-    send_string_len(lat, strlen(lat));
-    send_char_NRZI(sym_ovl, HIGH);
+    send_char_NRZI(_DT_POS, true);
+    send_string_len(lati, strlen(lati));
+    send_char_NRZI(sym_ovl, true);
     send_string_len(lon, strlen(lon));
-    send_char_NRZI(sym_tab, HIGH);
+    send_char_NRZI(sym_tab, true);
 
-    send_char_NRZI(' ', HIGH);
+    send_string_len(mystatus, strlen(mystatus));
+  }
+  else
+  {
+    send_char_NRZI(_DT_STATUS, true);
     send_string_len(mystatus, strlen(mystatus));
   }
 }
@@ -383,7 +386,7 @@ void send_char_NRZI(unsigned char in_byte, bool enBitStuff)
 void send_string_len(const char *in_string, int len)
 {
   for(int j=0; j<len; j++)
-    send_char_NRZI(in_string[j], HIGH);
+    send_char_NRZI(in_string[j], true);
 }
 
 void send_flag(unsigned char flag_len)
@@ -398,9 +401,9 @@ void send_flag(unsigned char flag_len)
  * delimiter. In this example, 100 flags is used the preamble and 3 flags as
  * the postamble.
  */
-void send_packet(char packet_type, char dest_type)
+void send_packet(char packet_type)
 {
-  print_debug(packet_type, dest_type);
+  print_debug(packet_type);
 
   digitalWrite(LED_BUILTIN, 1);
 
@@ -421,7 +424,7 @@ void send_packet(char packet_type, char dest_type)
   
   send_flag(100);
   crc = 0xffff;
-  send_header(dest_type);
+  send_header(packet_type);
   send_payload(packet_type);
   send_crc();
   send_flag(3);
@@ -465,7 +468,7 @@ char rx_gprmc(void)
       c++;
     }
 
-    if(c==6)
+    if(c==5)
     {
       if(rmc[4]!='C')
       {
@@ -501,6 +504,35 @@ char parse_gprmc(void)
     return 0;
 }
 
+int get_coord(void)
+{
+  int c=0;
+  char t;
+
+  /* latitude */
+  for(int i=0;i<7;i++)
+  {
+    lati[i] = rmc[i+18];
+  }
+
+  lati[7]=rmc[29];
+
+  /* Longitude */
+  for(int i=0;i<8;i++)
+  {
+    lon[i] = rmc[i+31];
+  }
+
+  lon[8]=rmc[43];
+
+  if(rmc[16]=='A')
+    return 1;
+  else if(rmc[16]=='V')
+    return 0;
+  else
+    return -1;
+}
+
 /*
  * 
  */
@@ -523,7 +555,7 @@ void print_code_version(void)
   Serial.println("GPRMC APRS Transmitter - Started ! \n");
 }
 
-void print_debug(char type, char dest_type)
+void print_debug(char type)
 {
   /*
    * PROTOCOL DEBUG.
@@ -533,6 +565,7 @@ void print_debug(char type, char dest_type)
    * 
    * MYCALL-N>APRS,DIGIn-N:<PAYLOAD STRING> <CR><LF>
    */
+  Serial.begin(115200);
 
   /****** MYCALL ********/
   Serial.print(mycall);
@@ -541,14 +574,10 @@ void print_debug(char type, char dest_type)
   Serial.print('>');
   
   /******** DEST ********/
-  if(dest_type == _NORMAL)
-  {
-    Serial.print(dest);
-  }
-  else if(dest_type == _BEACON)
-  {
+  if(type == _BEACON)
     Serial.print(dest_beacon);
-  }
+  else
+    Serial.print(dest);
   Serial.print(',');
 
   /******** DIGI ********/
@@ -566,7 +595,7 @@ void print_debug(char type, char dest_type)
   else if(type == _FIXPOS)
   {
     Serial.print(_DT_POS);
-    Serial.print(lat);
+    Serial.print(lati);
     Serial.print(sym_ovl);
     Serial.print(lon);
     Serial.print(sym_tab);
@@ -579,16 +608,23 @@ void print_debug(char type, char dest_type)
   else if(type == _FIXPOS_STATUS)
   {
     Serial.print(_DT_POS);
-    Serial.print(lat);
+    Serial.print(lati);
     Serial.print(sym_ovl);
     Serial.print(lon);
     Serial.print(sym_tab);
 
-    Serial.print(' ');
+    Serial.print(mystatus);
+  }
+  else
+  {
+    Serial.print(_DT_STATUS);
     Serial.print(mystatus);
   }
   
   Serial.println(' ');
+
+  Serial.flush();
+  Serial.end();
 }
 
 /*
@@ -603,11 +639,15 @@ void setup()
 void loop()
 {
   parse_gprmc();
+  coord_valid = get_coord();
   
   if(rmc_stat > 10)
   {
     //send_packet(random(1,4), random(1,3));
-    send_packet(_GPRMC, _NORMAL);
+    if(coord_valid > 0)
+      send_packet(random(1,6));
+    else
+      send_packet(_BEACON);
   }
   
   delay(tx_delay);
