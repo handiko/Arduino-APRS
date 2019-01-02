@@ -336,7 +336,6 @@ void send_payload(char type)
   }
   else
   {
-    //send_char_NRZI(_DT_STATUS, true);
     send_string_len(mystatus, strlen(mystatus));
   }
 }
@@ -507,9 +506,6 @@ char parse_gprmc(void)
 
 int get_coord(void)
 {
-  int c=0;
-  char t;
-
   /* latitude */
   for(int i=0;i<7;i++)
   {
@@ -618,7 +614,6 @@ void print_debug(char type)
   }
   else
   {
-    //Serial.print(_DT_STATUS);
     Serial.print(mystatus);
   }
   
