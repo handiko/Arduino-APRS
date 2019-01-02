@@ -117,6 +117,13 @@ Recently i performed a static test to see whether the Arduino-APRS could send th
 * Here was the RF path to the IGate:
 ![alt text](https://github.com/handiko/Arduino-APRS/blob/master/Pics/RF_path.png)
 
+## TODO
+* Make the code more efficient and nicer. (there's a lot of room for improvement!)
+* Bundle up into a library.
+* Adding demodulation capability.
+* Adding serial config capability.
+* etc...
+
 ## Acknowledgements
 * Direwolf - WB2OSZ https://github.com/wb2osz/direwolf
 * The APRS Working Group - Tucson Amateur Packet Radio Corp
