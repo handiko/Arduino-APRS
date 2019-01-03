@@ -19,7 +19,7 @@
 #include <SoftwareSerial.h>
 
 // Defines the Square Wave Output Pin
-#define OUT_PIN 2
+#define OUT_PIN 12
 
 #define _1200   1
 #define _2400   0
@@ -36,6 +36,16 @@
 #define _FIXPOS         3
 #define _FIXPOS_STATUS  4
 #define _STATUS         5
+
+// Defines the Dorji Control PIN
+#define _PTT      7
+#define _PD       6
+#define _POW      5
+
+#define DRJ_TXD 10
+#define DRJ_RXD 11
+
+SoftwareSerial dorji(DRJ_RXD, DRJ_TXD);
 
 bool nada = _2400;
 
@@ -405,7 +415,10 @@ void send_packet(char packet_type)
 {
   print_debug(packet_type);
 
-  digitalWrite(LED_BUILTIN, 1);
+  digitalWrite(LED_BUILTIN, HIGH);
+  digitalWrite(_PTT, HIGH);
+
+  delay(100);
 
   /*
    * AX25 FRAME
@@ -429,6 +442,7 @@ void send_packet(char packet_type)
   send_crc();
   send_flag(3);
 
+  digitalWrite(_PTT, LOW);
   digitalWrite(LED_BUILTIN, 0);
 }
 
@@ -538,8 +552,18 @@ void set_io(void)
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(OUT_PIN, OUTPUT);
 
+  pinMode(DRJ_RXD, INPUT);
+  pinMode(DRJ_TXD, OUTPUT);
+  pinMode(_PTT, OUTPUT);
+  pinMode(_PD, OUTPUT);
+  pinMode(_POW, OUTPUT);
+
+  digitalWrite(_PTT, LOW);
+  digitalWrite(_PD, HIGH);
+  digitalWrite(_POW, LOW);
+
   Serial.begin(115200);
-  gps.begin(9600);
+  dorji.begin(9600);
 }
 
 void print_code_version(void)
@@ -626,10 +650,63 @@ void print_debug(char type)
 /*
  * 
  */
+void dorji_init(SoftwareSerial &ser)
+{
+  ser.println("AT+DMOCONNECT");
+}
+
+void dorji_reset(SoftwareSerial &ser)
+{
+  for(char i=0;i<3;i++)
+    ser.println("AT+DMOCONNECT");
+}
+
+void dorji_setfreq(float txf, float rxf, SoftwareSerial &ser)
+{
+  ser.print("AT+DMOSETGROUP=0,");
+  ser.print(txf, 4);
+  ser.print(',');
+  ser.print(rxf, 4);
+  ser.println(",0000,0,0000");
+}
+
+void dorji_readback(SoftwareSerial &ser)
+{
+  String d;
+  
+  while(ser.available() < 1);
+  if(ser.available() > 0)
+  {
+    d = ser.readString();
+    Serial.print(d);
+  }
+}
+
+void dorji_close(SoftwareSerial &ser)
+{
+  ser.end();
+}
+
+/*
+ * 
+ */
 void setup()
 {
   set_io();
   print_code_version();
+
+  delay(250);
+  
+  dorji_reset(dorji);
+  dorji_readback(dorji);
+  delay(1000);
+  dorji_setfreq(144.390, 144.390, dorji);
+  dorji_readback(dorji);
+
+  Serial.println(' ');
+
+  dorji_close(dorji);
+  gps.begin(9600);
 }
 
 void loop()

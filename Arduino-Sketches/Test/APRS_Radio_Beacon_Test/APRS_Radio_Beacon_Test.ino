@@ -504,7 +504,7 @@ void setup()
 
 void loop()
 {
-  randomize(tx_delay, 10, 5000);
+  randomize(tx_delay, 100, 10000);
   randomize(str_len, 1, 128);
   
   send_packet();
