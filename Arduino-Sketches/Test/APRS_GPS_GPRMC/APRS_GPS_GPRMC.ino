@@ -707,6 +707,8 @@ void setup()
 
   dorji_close(dorji);
   gps.begin(9600);
+
+  randomSeed(analogRead(A0));
 }
 
 void loop()
