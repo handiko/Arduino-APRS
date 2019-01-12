@@ -452,6 +452,7 @@ void send_packet(char packet_type)
  */
 void randomize(unsigned int &var, unsigned int low, unsigned int high)
 {
+  randomSeed(analogRead(A0));
   var = random(low, high);
 }
 
@@ -726,5 +727,5 @@ void loop()
   }
   
   delay(tx_delay);
-  randomize(tx_delay, 1000, 15000);
+  randomize(tx_delay, 1000, 9000);
 }
