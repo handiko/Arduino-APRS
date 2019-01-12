@@ -94,7 +94,7 @@ char dest[8] = "APZ";
 char dest_beacon[8] = "BEACON";
 
 char digi[8] = "WIDE2";
-char digissid = 1;
+char digissid = 2;
 
 char comment[128] = "www.github.com/handiko";
 char mystatus[128] = "..::| Experimental Arduino-APRS |::..";
