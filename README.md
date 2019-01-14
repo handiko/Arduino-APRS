@@ -69,28 +69,28 @@ void set_nada_2400(void)
 Here are some preliminary test to show you how to generate APRS (or AFSK in general) signal on Arduino UNO.
 The required GRC Flowgraph can be obtained here : [GitHub page](https://github.com/handiko/gr-APRS)
 * Test circuit (**bring the loudspeaker close to your laptop's microphone**, and then run the GRC flowgraph above):
-![](./Pics/AFSK_Test_Circuit.png)
+![](./AFSK_Test_Circuit.png)
 
 ### Single Tone (1200 Hz / 2400 Hz) Test
 * Arduino Skecthes : **Arduino-APRS/Arduino-Sketches/Test/Single_Tone_Test_1200_Hz** (and .....2400_Hz of course)
 * GRC flowgraph: **APRS_time_and_freq_disp.grc**
 * Test result (1200 Hz) :
-![](./Pics/single_tone_1200_test.png)
+![](./single_tone_1200_test.png)
 * Test result (2400 Hz) :
-![](./Pics/single_tone_2400_test.png)
+![](./single_tone_2400_test.png)
 
 ### Random Two Tone Test
 * Arduino Skecthes : **Arduino-APRS/Arduino-Sketches/Test/Random_Two_Tones_Test**
 * Test result (using **APRS_time_and_freq_disp.grc**) :
-![](./Pics/two_tone_test.png)
+![](./two_tone_test.png)
 * Test result (using **APRS_time_and_freq_disp_BPF.grc**) :
-![](./Pics/two_tone_test_bpf.png)
+![](./two_tone_test_bpf.png)
 
 ### Random String Demodulation Test
 * Arduino Skecthes : **Arduino-APRS/Arduino-Sketches/Test/Pulsed_AFSK_Random_Delay_with_Preamble**
 * GRC Flowgraph : **APRS_AFSK_Demod_Clock_Sync.grc**
 * Test result. From the plot below, demodulator output and the Clock Synchronizer output shows that the generated AFSK signal has both correct tone and correct baudrate.
-![](./Pics/random_string_demod.png)
+![](./random_string_demod.png)
 
 ## Example
 Here are some examples where the generated APRS/AFSK signal is decoded using GNU Radio and [direwolf](https://github.com/wb2osz/direwolf). This example confirms that the generated APRS/AFSK signal indeed correct and decodeable.
@@ -99,25 +99,25 @@ Here are some examples where the generated APRS/AFSK signal is decoded using GNU
 * Arduino Skecthes : **Arduino-APRS/Arduino-Sketches/Example/APRS_Mixed_Message**
 * GRC Flowgraph : **APRS_SCARD.grc**
 * Transmitted frame (displayed in TNC2 format)
-![](./Pics/aprs_serial_monitor_debug.png)
+![](./aprs_serial_monitor_debug.png)
 * Test Result (Demod output)
-![](./Pics/aprs_demod_output.png)
+![](./aprs_demod_output.png)
 * Test Result [Direwolf](https://github.com/wb2osz/direwolf)
-![](./Pics/aprs_direwolf_decode.png)
+![](./aprs_direwolf_decode.png)
 * Test Result (Decoded APRS Frame from GNU Radio)
-![](./Pics/telnet_aprs_decode_output.png)
+![](./telnet_aprs_decode_output.png)
 
 ## Early Static Test
 Recently i performed a static test to see whether the Arduino-APRS could send the packet via Radio. Sure it could !
 * Ciruits : **Arduino-APRS/Fritzing-Sketch/APRS_GPS.fzz**
-![](./Pics/fritzing_APRS_GPS.png)
+![](./fritzing_APRS_GPS.png)
 * Arduino Sketches : **Arduino-APRS/Arduino-Sketches/Test/APRS_GPS_GPRMC**
 * GPS : **uBlox NEO-6-M with small pacth antenna**
 * I-Gate : **Direwolf** under linux
 * See how it was reporting the GPS positions while it still trying to aquire the most accurate position over time ([https://aprs.fi](https://aprs.fi) , [https://aprs.fi/info/a/YD1SDL-1](https://aprs.fi/info/a/YD1SDL-1)).
-![](./Pics/static_test_zoom.png)
+![](./static_test_zoom.png)
 * Here was the RF path to the IGate:
-![](./Pics/RF_path.png)
+![](./RF_path.png)
 
 ## TODO
 * Make the code more efficient and nicer. (there's a lot of room for improvement!)

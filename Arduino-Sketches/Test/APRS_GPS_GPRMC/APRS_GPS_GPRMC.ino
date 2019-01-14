@@ -32,10 +32,10 @@
 #define _DT_POS     '!'
 
 #define _GPRMC          1
-#define _BEACON         2
-#define _FIXPOS         3
-#define _FIXPOS_STATUS  4
-#define _STATUS         5
+#define _FIXPOS         2
+#define _FIXPOS_STATUS  3
+#define _STATUS         4
+#define _BEACON         5
 
 // Defines the Dorji Control PIN
 #define _PTT      7
@@ -721,7 +721,7 @@ void loop()
   {
     //send_packet(random(1,4), random(1,3));
     if(coord_valid > 0)
-      send_packet(random(1,6));
+      send_packet(random(1,5));
     else
       send_packet(_BEACON);
   }
