@@ -1,4 +1,4 @@
-# Arduino-APRS
+# Arduino APRS
 Create simple 1200baud APRS / AFSK modulator using Arduino UNO.
 Examples and Test files are included.
 
@@ -138,7 +138,7 @@ Recently i performed a static test to see whether the Arduino-APRS could send th
 & PT. Datto Asia Teknologi
 
 ## Contributing
-1. Fork it [https://github.com/handiko/PGA103-Eagle-Library/fork](https://github.com/handiko/PGA103-Eagle-Library/fork)
+1. Fork it [https://github.com/handiko/Arduino-APRS/fork](https://github.com/handiko/Arduino-APRS/fork)
 2. Create new branch (`git checkout -b add-blah-blah`)
 3. Do some editing / create new feature
 4. Commit your works (`git commit -m "Adding some blah blah blah.."`)
