@@ -78,7 +78,7 @@ bool nada = _2400;
  *     |<--tc2400-->|<--tc2400-->|<--tc2400-->|<--tc2400-->|
  *     
  */
-const float baud_adj = 0.975;
+const float baud_adj = 0.975; //0.975;
 const float adj_1200 = 1.0 * baud_adj;
 const float adj_2400 = 1.0 * baud_adj;
 unsigned int tc1200 = (unsigned int)(0.5 * adj_1200 * 1000000.0 / 1200.0);
@@ -102,7 +102,7 @@ char mystatus[128] = "..::| Experimental Arduino-APRS |::..";
 char lati[9];
 char lon[10];
 int coord_valid;
-const char sym_ovl = 'H';
+const char sym_ovl = 'T';
 const char sym_tab = 'a';
 
 unsigned int tx_delay = 5000;
@@ -435,7 +435,7 @@ void send_packet(char packet_type)
    * FCS      : 2 bytes calculated from HEADER + PAYLOAD
    */
   
-  send_flag(200);
+  send_flag(150);
   crc = 0xffff;
   send_header(packet_type);
   send_payload(packet_type);
@@ -721,11 +721,11 @@ void loop()
   {
     //send_packet(random(1,4), random(1,3));
     if(coord_valid > 0)
-      send_packet(random(5));
+      send_packet(_FIXPOS);
     else
       send_packet(_BEACON);
   }
   
   delay(tx_delay);
-  randomize(tx_delay, 14000, 16000);
+  randomize(tx_delay, 1000, 9000);
 }
