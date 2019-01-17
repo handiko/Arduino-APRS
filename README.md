@@ -119,6 +119,10 @@ Recently i performed a static test to see whether the Arduino-APRS could send th
 * Here was the RF path to the IGate:
 ![](./RF_path.png)
 
+## Tracking Test!
+I've done several tracking test. The transmitter that I use was Dorji DRA818V outputing only **500mW** (approx.), powered by a powerbank, 1/4 lambda wire antenna, 1 counterpoise, inserted into my sling bag, and I brought it when I do evening ride. Best distance so far, I could hit the YB0AZ digipeater.
+![](./tracking_test.png)
+
 ## TODO
 * Make the code more efficient and nicer. (there's a lot of room for improvement!)
 * Bundle up into a library.
