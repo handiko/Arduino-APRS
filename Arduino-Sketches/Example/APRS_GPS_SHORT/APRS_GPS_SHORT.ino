@@ -146,21 +146,27 @@ void print_debug(char type);
 void set_nada_1200(void)
 {
   digitalWrite(OUT_PIN, true);
+  //PORTB |= (1<<PB4);
   delayMicroseconds(tc1200);
   digitalWrite(OUT_PIN, LOW);
+  //PORTB &= ~(1<<PB4);
   delayMicroseconds(tc1200);
 }
 
 void set_nada_2400(void)
 {
   digitalWrite(OUT_PIN, true);
+  //PORTB |= (1<<PB4);
   delayMicroseconds(tc2400);
   digitalWrite(OUT_PIN, LOW);
+  //PORTB &= ~(1<<PB4);
   delayMicroseconds(tc2400);
   
   digitalWrite(OUT_PIN, true);
+  //PORTB |= (1<<OUT_PIN);
   delayMicroseconds(tc2400);
   digitalWrite(OUT_PIN, LOW);
+  //PORTB &= ~(1<<OUT_PIN);
   delayMicroseconds(tc2400);
 }
 
@@ -418,7 +424,7 @@ void send_packet(char packet_type)
   digitalWrite(LED_BUILTIN, HIGH);
   digitalWrite(_PTT, HIGH);
 
-  delay(100);
+  //delay(100);
 
   /*
    * AX25 FRAME
@@ -671,6 +677,16 @@ void dorji_setfreq(float txf, float rxf, SoftwareSerial &ser)
   ser.println(",0000,0,0000");
 }
 
+void dorji_setfilter(bool emph, bool hpf, bool lpf, SoftwareSerial &ser)
+{
+  ser.print("AT+SETFILTER=");
+  ser.print(emph);
+  ser.print(',');
+  ser.print(hpf);
+  ser.print(',');
+  ser.println(lpf);
+}
+
 void dorji_readback(SoftwareSerial &ser)
 {
   String d;
@@ -702,6 +718,9 @@ void setup()
   dorji_readback(dorji);
   delay(1000);
   dorji_setfreq(144.390, 144.390, dorji);
+  dorji_readback(dorji);
+  delay(1000);
+  dorji_setfilter(0,0,0,dorji);
   dorji_readback(dorji);
 
   Serial.println(' ');
