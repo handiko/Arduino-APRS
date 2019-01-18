@@ -87,7 +87,7 @@ unsigned int tc2400 = (unsigned int)(0.5 * adj_2400 * 1000000.0 / 2400.0);
 /*
  * This strings will be used to generate AFSK signals, over and over again.
  */
-char mycall[8] = "YD1SDL";
+char mycall[8] = "MYCALL";
 char myssid = 1;
 
 char dest[8] = "APZ";
