@@ -742,9 +742,11 @@ void loop()
     {
       //send_packet(_GPRMC);
       if((random(100) & 0x01) == 0)
-        send_packet(_GPRMC);
-      else
         send_packet(_FIXPOS);
+      else if((random(100) % 3) == 0)
+        send_packet(_FIXPOS_STATUS);
+      else
+        send_packet(_GPRMC);
     }
     else
       send_packet(_BEACON);
