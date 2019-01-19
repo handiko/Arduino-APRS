@@ -31,6 +31,7 @@
 #define _DT_STATUS      '>'
 #define _DT_POS         '!'
 #define _DT_POS_TIME    '/'
+#define _TIME_SYMB      'h'
 
 #define _GPRMC          1
 #define _FIXPOS         2
@@ -107,6 +108,7 @@ int coord_valid;
 
 char gps_time[7];
 
+int flag_len = 100;
 const char sym_ovl = '/';
 const char sym_tab = '"';
 
@@ -151,27 +153,21 @@ void print_debug(char type);
 void set_nada_1200(void)
 {
   digitalWrite(OUT_PIN, true);
-  //PORTB |= (1<<PB4);
   delayMicroseconds(tc1200);
   digitalWrite(OUT_PIN, LOW);
-  //PORTB &= ~(1<<PB4);
   delayMicroseconds(tc1200);
 }
 
 void set_nada_2400(void)
 {
   digitalWrite(OUT_PIN, true);
-  //PORTB |= (1<<PB4);
   delayMicroseconds(tc2400);
   digitalWrite(OUT_PIN, LOW);
-  //PORTB &= ~(1<<PB4);
   delayMicroseconds(tc2400);
   
   digitalWrite(OUT_PIN, true);
-  //PORTB |= (1<<OUT_PIN);
   delayMicroseconds(tc2400);
   digitalWrite(OUT_PIN, LOW);
-  //PORTB &= ~(1<<OUT_PIN);
   delayMicroseconds(tc2400);
 }
 
@@ -344,7 +340,7 @@ void send_payload(char type)
   {
     send_char_NRZI(_DT_POS_TIME, true);
     send_string_len(gps_time, strlen(gps_time));
-    send_char_NRZI('z', true);
+    send_char_NRZI(_TIME_SYMB, true);
     send_string_len(lati, strlen(lati));
     send_char_NRZI(sym_ovl, true);
     send_string_len(lon, strlen(lon));
@@ -365,8 +361,13 @@ void send_payload(char type)
 
     send_string_len(comment, strlen(comment));
   }
+  else if(type == _BEACON)
+  {
+    send_string_len(mystatus, strlen(mystatus));
+  }
   else
   {
+    send_char_NRZI(_DT_STATUS, true);
     send_string_len(mystatus, strlen(mystatus));
   }
 }
@@ -454,7 +455,7 @@ void send_packet(char packet_type)
    * FCS      : 2 bytes calculated from HEADER + PAYLOAD
    */
   
-  send_flag(75);
+  send_flag(flag_len);
   crc = 0xffff;
   send_header(packet_type);
   send_payload(packet_type);
@@ -651,7 +652,7 @@ void print_debug(char type)
   {
     Serial.print(_DT_POS_TIME);
     Serial.print(gps_time);
-    Serial.print('z');
+    Serial.print(_TIME_SYMB);
     Serial.print(lati);
     Serial.print(sym_ovl);
     Serial.print(lon);
@@ -672,8 +673,13 @@ void print_debug(char type)
 
     Serial.print(comment);
   }
+  else if(type == _BEACON)
+  {
+    Serial.print(mystatus);
+  }
   else
   {
+    Serial.print(_DT_STATUS);
     Serial.print(mystatus);
   }
   
@@ -778,5 +784,5 @@ void loop()
   }
   
   delay(tx_delay);
-  randomize(tx_delay, 3000, 7000);
+  randomize(tx_delay, 5000, 20000);
 }
