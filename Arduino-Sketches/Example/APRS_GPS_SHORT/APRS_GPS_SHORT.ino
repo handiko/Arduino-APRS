@@ -102,6 +102,7 @@ char mystatus[128] = "..::| Experimental Arduino-APRS |::..";
 char lati[9];
 char lon[10];
 int coord_valid;
+
 const char sym_ovl = '/';
 const char sym_tab = '"';
 
@@ -738,7 +739,13 @@ void loop()
   {
     //send_packet(random(1,4), random(1,3));
     if(coord_valid > 0)
-      send_packet(_FIXPOS);
+    {
+      //send_packet(_GPRMC);
+      if((random(100) & 0x01) == 0)
+        send_packet(_GPRMC);
+      else
+        send_packet(_FIXPOS);
+    }
     else
       send_packet(_BEACON);
   }
