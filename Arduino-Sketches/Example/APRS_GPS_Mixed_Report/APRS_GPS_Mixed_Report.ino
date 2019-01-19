@@ -99,7 +99,7 @@ char digi[8] = "WIDE2";
 char digissid = 2;
 
 char comment[128] = "www.github.com/handiko";
-char mystatus[128] = "..::| Experimental Arduino-APRS |::..";
+char mystatus[128] = "250mW APRS Tracker";
 
 char lati[9];
 char lon[10];
