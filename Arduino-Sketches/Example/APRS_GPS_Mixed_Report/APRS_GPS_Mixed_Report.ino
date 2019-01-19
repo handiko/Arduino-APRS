@@ -771,7 +771,10 @@ void loop()
   {
     if(coord_valid > 0)
     {
-      send_packet(_FIXPOS);
+      if((random(1000)%2)==0)
+        send_packet(_FIXPOS);
+      else
+        send_packet(random(5));
     }
     else
       send_packet(_BEACON);
