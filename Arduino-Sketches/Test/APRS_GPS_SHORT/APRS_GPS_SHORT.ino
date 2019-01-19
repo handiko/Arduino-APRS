@@ -435,7 +435,7 @@ void send_packet(char packet_type)
    * FCS      : 2 bytes calculated from HEADER + PAYLOAD
    */
   
-  send_flag(150);
+  send_flag(75);
   crc = 0xffff;
   send_header(packet_type);
   send_payload(packet_type);

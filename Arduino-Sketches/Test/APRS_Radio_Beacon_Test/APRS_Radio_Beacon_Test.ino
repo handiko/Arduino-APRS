@@ -331,8 +331,6 @@ void send_packet(void)
 
   digitalWrite(LED_BUILTIN, HIGH);
   digitalWrite(_PTT, HIGH);
-
-  delay(100);
   
   /*
    * AX25 FRAME
@@ -349,7 +347,7 @@ void send_packet(void)
    * FCS      : 2 bytes calculated from HEADER + PAYLOAD
    */
   
-  send_flag(100);
+  send_flag(75);
   crc = 0xffff;
   send_header();
   send_payload();
@@ -500,6 +498,8 @@ void setup()
   Serial.println(' ');
 
   delay(1000);
+
+  randomSeed(analogRead(A0));
 }
 
 void loop()
