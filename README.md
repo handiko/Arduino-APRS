@@ -1,12 +1,12 @@
 # Arduino APRS
-Create simple 1200baud APRS / AFSK modulator using Arduino UNO.
+Create simple 1200baud APRS/AFSK modulator using Arduino UNO.
 Examples and Test files are included.
 
 ## Requirements
-* **Arduino UNO / Compatible Board**. Doesn't really matter what board you are using. As long as it has enough GPIO and at least 1 UART to work with. Even works on ESP8266 / ESP12 board by changing the `#define OUT_PIN 2` into the desired GPIO. Personally, I often use GPIO 14 on ESP8266 / ESP12, so I changed it into `#define OUT_PIN 14`.
+* **Arduino UNO / Compatible Board**. Doesn't really matter what board you are using. As long as it has enough GPIO and at least 1 UART to work with. Even works on ESP8266/ESP-12 board by changing the `#define OUT_PIN x` into the desired GPIO. Personally, I often use GPIO 14 on ESP8266/ESP-12, so I changed it into `#define OUT_PIN 14`.
 * **Arduino IDE**
-* **GNU Radio Companion** (not a mandatory, but recommended for testing purposes by running GRC flowgraph from [https://github.com/handiko/gr-APRS](https://github.com/handiko/gr-APRS)). You can also use Audacity instead just for spectral and time domain analysis.
-* **1 Resistor between 270 Ohms - 470 Ohms** (GPIO current limitter).
+* **GNU Radio Companion** (not a mandatory, but recommended for testing purposes by running GRC flowgraph from [https://github.com/handiko/gr-APRS](https://github.com/handiko/gr-APRS)). You can also use Audacity, for spectral and time domain analysis.
+* **Few resistors between 220 Ohms - 1k Ohms** (GPIO current limitter).
 * **1 mini speaker** (8 Ohms - 32 Ohms and below 0.5 watt works well).
 * **Jumper wires and bread board**
 
