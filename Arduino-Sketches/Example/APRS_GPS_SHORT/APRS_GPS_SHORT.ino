@@ -87,7 +87,7 @@ unsigned int tc2400 = (unsigned int)(0.5 * adj_2400 * 1000000.0 / 2400.0);
 /*
  * This strings will be used to generate AFSK signals, over and over again.
  */
-char mycall[8] = "MYCALL";
+char mycall[8] = "YD1SDL";
 char myssid = 1;
 
 char dest[8] = "APZ";
@@ -102,8 +102,8 @@ char mystatus[128] = "..::| Experimental Arduino-APRS |::..";
 char lati[9];
 char lon[10];
 int coord_valid;
-const char sym_ovl = 'T';
-const char sym_tab = 'a';
+const char sym_ovl = '/';
+const char sym_tab = '"';
 
 unsigned int tx_delay = 5000;
 unsigned int str_len = 400;
