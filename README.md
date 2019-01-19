@@ -11,7 +11,7 @@ Examples and Test files are included.
 * **Jumper wires and bread board**
 
 ## AFSK Bit Banging
-Basically, the technique i used to generate AFSK signal is by directly construct the signal itself by outputing square wave at the GPIO. Here is the some code and comment snippet from the sketch (doesn't directly explain the AFSK signal generation, but i think you'll get the idea):
+Basically, the technique I used to generate AFSK signal is by directly construct the signal itself by output square wave at the GPIO. Here is some code and comment snippet from the sketch (doesn't directly explain the AFSK signal generation, but I think you'll get the idea):
 ```c
 /* SQUARE WAVE SIGNAL GENERATION
  * 
@@ -66,7 +66,7 @@ void set_nada_2400(void)
 ```
  
 ## Test
-Here are some preliminary test to show you how to generate APRS (or AFSK in general) signal on Arduino UNO.
+Here is some preliminary test to show you how to generate APRS (or AFSK in general) signal on Arduino UNO.
 The required GRC Flowgraph can be obtained here : [GitHub page](https://github.com/handiko/gr-APRS)
 * Test circuit (**bring the loudspeaker close to your laptop's microphone**, and then run the GRC flowgraph above):
 ![](./AFSK_Test_Circuit.png)
@@ -108,7 +108,7 @@ Here are some examples where the generated APRS/AFSK signal is decoded using GNU
 ![](./telnet_aprs_decode_output.png)
 
 ## Early Static Test
-Recently i performed a static test to see whether the Arduino-APRS could send the packet via Radio. Sure it could !
+Recently I performed a static test to see whether the Arduino-APRS could send the packet via Radio. Sure it could !
 * Ciruits : **Arduino-APRS/Fritzing-Sketch/APRS_GPS.fzz**
 ![](./fritzing_APRS_GPS.png)
 * Arduino Sketches : **Arduino-APRS/Arduino-Sketches/Test/APRS_GPS_GPRMC**
@@ -120,7 +120,7 @@ Recently i performed a static test to see whether the Arduino-APRS could send th
 ![](./RF_path.png)
 
 ## Tracking Test !
-I've done several tracking test. The transmitter that I use was **Dorji DRA818V TX Shield** (for more info, please visit [GitHub page](https://handiko.github.io/Dorji-TX-Shield/) or [repo](https://github.com/handiko/Dorji-TX-Shield)) outputing only **500mW (!)** (approx., might be less), powered from a 5V powerbank, **1/4 lambda wire antenna + 1 counterpoise**, inserted into my sling bag, and I brought it when I do evening ride. Best distance so far, I could hit the [YB0AZ](https://aprs.fi/info/a/YB0AZ) digipeater (only 4.5km, though).
+I've done several tracking tests. The transmitter that I use was **Dorji DRA818V TX Shield** (for more info, please visit [GitHub page](https://handiko.github.io/Dorji-TX-Shield/) or [repo](https://github.com/handiko/Dorji-TX-Shield)) outputing only **500mW (!)** (approx., might be less), powered from a 5V powerbank, **1/4 lambda wire antenna + 1 counterpoise**, inserted into my sling bag, and I brought it when I do an evening ride. Best distance so far, I could hit the [YB0AZ](https://aprs.fi/info/a/YB0AZ) digipeater (only 4.5km, though).
 ![](./tracking_test.png)
 
 Best distance to [YB0AZ](https://aprs.fi/info/a/YB0AZ)
