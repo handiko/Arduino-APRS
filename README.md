@@ -10,6 +10,10 @@ Examples and Test files are included.
 * **1 mini speaker** (8 Ohms - 32 Ohms and below 0.5 watt works well).
 * **Jumper wires and bread board**
 
+## Dorji DRA818V/U Arduino Shield
+This is the hardware that I used to do some tracking tests. More info on [GitHub page](https://handiko.github.io/Dorji-TX-Shield/) or [GitHub repo](https://github.com/handiko/Dorji-TX-Shield)
+![](./dorji_2.jpg)
+
 ## AFSK Bit Banging
 Basically, the technique I used to generate AFSK signal is by directly construct the signal itself by output square wave at the GPIO. Here is some code and comment snippet from the sketch (doesn't directly explain the AFSK signal generation, but I think you'll get the idea):
 ```c
