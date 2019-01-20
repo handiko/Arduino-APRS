@@ -784,5 +784,5 @@ void loop()
   }
   
   delay(tx_delay);
-  randomize(tx_delay, 10, 30000);
+  randomize(tx_delay, 1, 30000);
 }
