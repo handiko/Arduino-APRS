@@ -108,7 +108,7 @@ int coord_valid;
 
 char gps_time[7];
 
-int flag_len = 100;
+int flag_len = 75;
 const char sym_ovl = '/';
 const char sym_tab = '"';
 
@@ -784,5 +784,5 @@ void loop()
   }
   
   delay(tx_delay);
-  randomize(tx_delay, 5000, 20000);
+  randomize(tx_delay, 3000, 15000);
 }
