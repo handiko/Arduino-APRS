@@ -124,7 +124,7 @@ Recently I performed a static test to see whether the Arduino-APRS could send th
 ![](./RF_path.png)
 
 ## Tracking Test !
-I've done several tracking tests. The transmitter that I use was **Dorji DRA818V TX Shield** (for more info, please visit [GitHub page](https://handiko.github.io/Dorji-TX-Shield/) or [repo](https://github.com/handiko/Dorji-TX-Shield)) outputing only **500mW (!)** (approx., might be less), powered from a 5V powerbank, **1/4 lambda wire antenna + 1 counterpoise**, inserted into my sling bag, and I brought it when I do an evening ride. Best distance so far, I could hit the [YB0AZ](https://aprs.fi/info/a/YB0AZ) digipeater (only 4.5km, though).
+I've done several tracking tests. The transmitter that I use was **Dorji DRA818V TX Shield** (for more info, please visit [GitHub page](https://handiko.github.io/Dorji-TX-Shield/) or [repo](https://github.com/handiko/Dorji-TX-Shield)) outputing only **500mW (!)** (approx., might be less. More likely between 200mW - 400mW due to the high VSWR exposure last year), powered from a 5V powerbank, **1/4 lambda wire antenna + 1 counterpoise**, inserted into my sling bag, and I brought it when I do an evening ride. Best distance so far, I could hit the [YB0AZ](https://aprs.fi/info/a/YB0AZ) digipeater (only 4.5km, though).
 ![](./tracking_test.png)
 
 Best distance to [YB0AZ](https://aprs.fi/info/a/YB0AZ)
