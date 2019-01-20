@@ -150,8 +150,8 @@ Best distance to [YB0AZ](https://aprs.fi/info/a/YB0AZ)
 
 ## Contributing
 1. Fork it [https://github.com/handiko/Arduino-APRS/fork](https://github.com/handiko/Arduino-APRS/fork)
-2. Create new branch (`git checkout -b add-blah-blah`)
+2. Create new branch (`git checkout -b myfeature`)
 3. Do some editing / create new feature
-4. Commit your works (`git commit -m "Adding some blah blah blah.."`)
-5. Push to the branch (`git push -u origin add-blah-blah`)
+4. Commit your works (`git commit -m "Adding some feature blah blah blah.."`)
+5. Push to the branch (`git push -u origin myfeature`)
 6. Create a new Pull Request
