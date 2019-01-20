@@ -3,7 +3,7 @@ Create simple 1200baud APRS/AFSK modulator using Arduino UNO.
 Examples and Test files are included.
 
 ## Requirements
-* **Arduino UNO / Compatible Board**. Doesn't really matter what board you are using. As long as it has enough GPIO and at least 1 UART to work with. Even works on ESP8266/ESP-12 board by changing the `#define OUT_PIN x` into the desired GPIO. Personally, I often use GPIO 14 on ESP8266/ESP-12, so I changed it into `#define OUT_PIN 14`.
+* **Arduino UNO / Compatible Board**. It doesn't really matter what is the board that you are using. As long as it has enough GPIO and at least 1 UART to work with. Even works on ESP8266/ESP-12 board by changing the `#define OUT_PIN x` into the desired GPIO. Personally, I often use GPIO 14 on ESP8266/ESP-12, so I changed it into `#define OUT_PIN 14`.
 * **Arduino IDE**
 * **GNU Radio Companion** (not a mandatory, but recommended for testing purposes by running GRC flowgraph from [https://github.com/handiko/gr-APRS](https://github.com/handiko/gr-APRS)). You can also use Audacity, for spectral and time domain analysis.
 * **Few resistors between 220 Ohms - 1k Ohms** (GPIO current limitter).
@@ -11,11 +11,11 @@ Examples and Test files are included.
 * **Jumper wires and bread board**
 
 ## Dorji DRA818V/U Arduino Shield
-This is the hardware that I used to do some tracking tests. More info on [GitHub page](https://handiko.github.io/Dorji-TX-Shield/) or [GitHub repo](https://github.com/handiko/Dorji-TX-Shield)
+This is the hardware that I used to do some tracking tests. More info on the [GitHub page](https://handiko.github.io/Dorji-TX-Shield/) or [GitHub repo](https://github.com/handiko/Dorji-TX-Shield)
 ![](./dorji_2.jpg)
 
 ## AFSK Bit Banging
-Basically, the technique I used to generate AFSK signal is by directly construct the signal itself by output square wave at the GPIO. Here is some code and comment snippet from the sketch (doesn't directly explain the AFSK signal generation, but I think you'll get the idea):
+Basically, the technique that I used to generate AFSK signal is by directly construct the signal itself as a square wave at the GPIO. Then, the low pass characteristic of the rest of the system will filter the harmonics. Here is some code and comment snippet from the sketch (doesn't completely explain the AFSK signal generation, but I think you'll get the idea):
 ```c
 /* SQUARE WAVE SIGNAL GENERATION
  * 
@@ -71,7 +71,7 @@ void set_nada_2400(void)
  
 ## Test
 Here is some preliminary test to show you how to generate APRS (or AFSK in general) signal on Arduino UNO.
-The required GRC Flowgraph can be obtained here : [GitHub page](https://github.com/handiko/gr-APRS)
+The required GRC Flowgraph can be obtained here : [GitHub page](https://handiko.github.io/gr-APRS/) or [GitHub repo](https://github.com/handiko/gr-APRS)
 * Test circuit (**bring the loudspeaker close to your laptop's microphone**, and then run the GRC flowgraph above):
 ![](./AFSK_Test_Circuit.png)
 
